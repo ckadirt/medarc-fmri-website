@@ -38,7 +38,6 @@ container.appendChild(renderer.domElement) // add the renderer to html div
 ///// CAMERAS CONFIG
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 100)
 camera.position.set(34,16,20)
-camera.lookAt(new THREE.Vector3(1000,1000,1000));
 scene.add(camera)
 
 /////////////////////////////////////////////////////////////////////////
@@ -127,8 +126,8 @@ function transformMesh(){
             vec3 seg = position - mousePos;
             vec3 dir = normalize(seg);
             float dist = length(seg);
-            if (dist < 100.5){
-              float force = clamp(1.0 / (dist * dist), -0.8, .8);
+            if (dist < 10.5){
+              float force = clamp(1.0 / (dist * dist * 0.3), -0.8, .3);
               transformed += dir * force;
               vNormal = force /0.9;
             }
@@ -175,9 +174,10 @@ function setOrbitControlsLimits(){
     controls.minDistance = 0
     controls.maxDistance = 90
     controls.enableRotate = true
-    controls.enableZoom = true
+    controls.enableZoom = false
     controls.zoomSpeed = 0.5
     controls.autoRotate = true
+    
 }
 
 function onMouseWheel(event){
