@@ -25,7 +25,7 @@ document.body.appendChild(container)
 /////////////////////////////////////////////////////////////////////////
 ///// SCENE CREATION
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('#000000')
+scene.background = new THREE.Color('white')
 /////////////////////////////////////////////////////////////////////////
 ///// RENDERER CONFIG
 const renderer = new THREE.WebGLRenderer({ antialias: true}) // turn on antialias
@@ -90,7 +90,7 @@ const tempPosition = new THREE.Vector3()
 
 function transformMesh(){
     // Loop to sample a coordinate for each points
-    for (let i = 0; i < 90000; i ++) {
+    for (let i = 0; i < 120000; i ++) {
         // Sample a random position in the model
         sampler.sample(tempPosition)
         // Push the coordinates of the sampled coordinates into the array
@@ -102,14 +102,15 @@ function transformMesh(){
 
     // Define the matrial of the points
     const pointsMaterial = new THREE.PointsMaterial({
-        color:'#ffffff',
-        size: 0.03,
-        blending: THREE.AdditiveBlending,
+        color:'#1e337a',
+        size: 0.02,
+        //blending: THREE.AdditiveBlending,
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.98,
         depthWrite: false,
         sizeAttenuation: true,
-        alphaMap: new THREE.TextureLoader().load('particle-texture.jpg')
+        alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
+        
     })
 
     // Create the custom vertex shader injection
