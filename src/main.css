@@ -3,12 +3,14 @@ body, html {
 	padding: 0;
 	overscroll-behavior: none;
 	overflow: hidden;
-	background-color: black;
+	display: block;
 }
 
 #canvas {
 
-	background-color: black;
+	position: fixed;
+	top: 40px; left: -30vh;
+	z-index: -1;
 	
 }
 
