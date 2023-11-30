@@ -8,6 +8,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import WebPage from './react-components'
+import { createRoot } from 'react-dom/client'
 
 /////////////////////////////////////////////////////////////////////////
 //// DRACO LOADER TO LOAD DRACO COMPRESSED MODELS FROM BLENDER
@@ -31,7 +33,7 @@ scene.background = null// new THREE.Color('white')
 ///// RENDERER CONFIG
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true}) // turn on antialias
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) //set pixel ratio
-renderer.setSize(window.innerWidth, window.innerHeight) // make it full screen
+renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700*2)) // set size
 renderer.outputEncoding = THREE.sRGBEncoding // set color encoding
 container.appendChild(renderer.domElement) // add the renderer to html div
 
@@ -62,13 +64,13 @@ const controls = new OrbitControls(camera, renderer.domElement)
 const ambient = new THREE.AmbientLight(0xa0a0fc, 0.82)
 scene.add(ambient)
 
-const sunLight = new THREE.DirectionalLight(0xe8c37b, 1.96)
-sunLight.position.set(-69,44,14)
-scene.add(sunLight)
+//const sunLight = new THREE.DirectionalLight(0xe8c37b, 1.96)
+//sunLight.position.set(-69,44,14)
+//scene.add(sunLight)
 
 /////////////////////////////////////////////////////////////////////////
 ///// LOADING GLB/GLTF MODEL FROM BLENDER
-loader.load('models/gltf/bff.glb', function (gltf) {
+loader.load('models/gltf/brain_final.glb', function (gltf) {
 
     gltf.scene.traverse((obj) => {
         if (obj.isMesh) {
@@ -103,7 +105,7 @@ function transformMesh(){
 
     // Define the matrial of the points
     const pointsMaterial = new THREE.PointsMaterial({
-        color:'#1e337a',
+        color:'#000000',
         size: 0.02,
         //blending: THREE.AdditiveBlending,
         transparent: true,
@@ -151,10 +153,10 @@ function transformMesh(){
 function introAnimation() {
     controls.enabled = false //disable orbit controls to animate the camera
     
-    new TWEEN.Tween(camera.position.set(10, -30, 10)).to({ // from camera position
-        x: 0.4, //desired x position to go
-        y: -0.8, //desired y position to go
-        z: 4 //desired z position to go
+    new TWEEN.Tween(camera.position.set(0.2, -0, 0)).to({ // from camera position
+        x: -3.8, //desired x position to go
+        y: 0.2, //desired y position to go
+        z: -0 //desired z position to go
     }, 500) // time take to animate
     .delay(1000).easing(TWEEN.Easing.Quartic.InOut).start() // define delay, easing
     .onComplete(function () { //on finish animation
@@ -200,6 +202,8 @@ function renderLoop() {
     TWEEN.update();
     controls.update();
     renderer.render(scene, camera);
+ 
+    
 
     const currentTime = Date.now();
     if (currentTime - lastMouseMoveTime > idleThreshold) {
@@ -222,6 +226,13 @@ function renderLoop() {
 
 renderLoop();
 
+// check resize screen and update accordingly
+window.addEventListener('resize', (event) => {
+    event.preventDefault();
+    console.log(window.innerWidth, window.innerHeight)
+    renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700*18/9))
+}, false);
+
 document.addEventListener('mousemove', (event) => {
     event.preventDefault();
 
@@ -236,7 +247,7 @@ document.addEventListener('mousemove', (event) => {
     tsParticles.load("tsparticles", {
         fps_limit: 60,
         interactivity: {
-          detect_on: "canvas",
+          
           events: {
             onclick: { enable: true, mode: "push" },
             onhover: {
@@ -252,9 +263,9 @@ document.addEventListener('mousemove', (event) => {
           }
         },
         particles: {
-          color: { value: "#f07" },
+          color: { value: "#30BF97" },
           line_linked: {
-            color: "#f07",
+            color: "#3F7373",
             distance: 150,
             enable: true,
             opacity: 0.4,
@@ -291,7 +302,7 @@ document.addEventListener('mousemove', (event) => {
               width: 100
             },
             polygon: { nb_sides: 5 },
-            stroke: { color: "#000000", width: 0 },
+            stroke: { color: "#575859", width: 0 },
             type: "circle"
           },
           size: {
@@ -301,7 +312,7 @@ document.addEventListener('mousemove', (event) => {
           }
         },
         polygon: {
-          draw: { enable: false, lineColor: "#ffffff", lineWidth: 0.5 },
+          draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
           move: { radius: 10 },
           scale: 1,
           type: "none",
@@ -312,10 +323,8 @@ document.addEventListener('mousemove', (event) => {
       
   })();
 
-  class MyComponent extends React.Component {
-    render() {
-      return <h1>Hello, React!</h1>;
-    }
-  }
 
-  ReactDOM.render(<MyComponent />, document.getElementById('react-root'));
+  const rootElement = document.getElementById("react-root");
+  const root = createRoot(rootElement);
+
+  root.render(<WebPage />, rootElement);
