@@ -4,13 +4,17 @@ html {
 	padding: 0;	
 	display: block;
 	font-family: Roboto, sans-serif;
-	background-color: #BAD9D3;
+	background-color: #edecec;
 	scroll-behavior: smooth;
 	scroll-snap-type: mandatory;
 }
 
+/* fonts */
+@import url('https://fonts.cdnfonts.com/css/canela');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
-	position: relative;
+	
 	/* or absolute, fixed, or sticky, as needed */
 	z-index: inherit;
 }
@@ -68,7 +72,7 @@ canvas {
 
 
 .footer {
-	background-color: #177359;
+	background-color: #141414;
 	/* Dark blue color */
 	color: white;
 	padding: 20px 0;
@@ -102,7 +106,7 @@ canvas {
 }
 
 .header {
-	background-color: #177359;
+	background-color: black;
 	/* Dark blue color */
 	color: white;
 	padding: 10px 0;
@@ -248,33 +252,80 @@ canvas {
 
 
 /* title component */
+.title-container {
+	display: block;
+	color: #141414;
+	height: 60vh;
+	width: 80%;
+	margin: 10vh auto;
+	font-size: 4.5em;
+	font-family: Playfair Display, serif;
+	
+
+}
 
 .title-container {
-	font-family: 'Arial', sans-serif; /* Replace with the font you want to use */
-	text-align: center;
 	position: relative;
-  }
-  
-  .main-title {
-	font-size: 72px; /* Adjust the font size as needed */
-	font-weight: bold; /* Adjust the font weight as needed */
-	margin: 0;
+}
+
+.hero-title {
+	z-index: 1;
+	top: 0;
+	left: 0;
+}
+.title-container h1 {
+	height: 100%;
+	font-weight: 400;
+	
+	margin: auto auto auto 5%;
+	margin-top: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.u-splitted-lines-3 {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	margin-left: 10%;
+}
+
+.u-splitted-lines-3> * {
+    margin-left: 0.3em;
+}
+
+.u-splitted-lines-2 {
+	margin-left: 20%;
+}
+
+.hero-title--three-lines {
+	height: 100%;
+
+}
+
+.hero-floating-text {
+	height: 100%;
+	width: 100%;
 	position: absolute;
-	top: 50%; /* Adjust to align vertically as in your design */
-	left: 50%;
-	transform: translate(-50%, -50%);
-  }
-  
-  .highlight {
-	color: #FF5733; /* Replace with the color you want for 'AI' */
-  }
-  
-  .secondary-sentences {
-	font-size: 24px; /* Adjust the font size as needed */
-	color: #888; /* Replace with the color you want for the secondary sentences */
+	top: 0;
+	left: 0;
+	z-index: 4;
+	color:#606060;
+	font-size: 0.4em;
+}
+
+.hero-floating-text__left {
 	position: absolute;
-	bottom: 10%; /* Adjust to position the secondary sentences */
-	left: 50%;
-	transform: translateX(-50%);
-  }
-  
+	bottom: 0;
+	left: 0;
+	max-width: 10%;
+}
+
+.hero-floating-text__right {
+	position: absolute;
+	top: 7%;
+	right: 18%;
+	max-width: 15%;
+}

@@ -184,14 +184,34 @@ const HeaderMobile = () => {
 const TitleComponent = () => {
     return (
       <div className="title-container">
-        <div className="main-title">
-          MedARC<br />
-          Neuroimaging<br />
-          & <span className="highlight">AI</span> Lab
+        <div className="hero-title hero-title--three-lines">
+          <h1>
+            <span>
+              <div className="u-splitted-lines-1">
+                <div>MedARC</div>
+              </div>
+            </span>
+            <span>
+              <div className="u-splitted-lines-2">
+                  <div>Neuroimaging</div>            
+              </div>
+            </span>
+            <span>
+              <div className="u-splitted-lines-3">
+                <div>&amp;</div>
+                <div style={{ color: '#FF5733' }}> AI </div>
+                <div>Lab</div>
+              </div>
+            </span>
+          </h1>
         </div>
-        <div className="secondary-sentences">
-          Exploring the brain<br />
-          Open source
+        <div className="hero-floating-text">
+          <div className="hero-floating-text__left">
+            Exploring the human brain<br />
+          </div>
+          <div className="hero-floating-text__right">
+            Open source, open science, open minds.
+            </div>
         </div>
       </div>
     );
@@ -207,26 +227,6 @@ const ContentHome = () => {
                 minHeight: "90vh",
             }
             }>
-            <div className='title'
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "stretch",
-                    maxHeight: "15em",
-                }
-                }
-            >
-                <span><p>MedARC </p></span>
-                <span
-                style={{
-                    top: '-70px',
-                }
-
-                }
-                ><p>Neuroimaging & AI Lab </p></span>
-                
-            </div>
             <TitleComponent />
 
             <div

@@ -39,8 +39,8 @@ container.appendChild(renderer.domElement) // add the renderer to html div
 
 /////////////////////////////////////////////////////////////////////////
 ///// CAMERAS CONFIG
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 100)
-camera.position.set(34,16,20)
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 100)
+//camera.position.set(34,16,20)
 scene.add(camera)
 
 /////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ const tempPosition = new THREE.Vector3()
 
 function transformMesh(){
     // Loop to sample a coordinate for each points
-    for (let i = 0; i < 120000; i ++) {
+    for (let i = 0; i < 80000; i ++) {
         // Sample a random position in the model
         sampler.sample(tempPosition)
         // Push the coordinates of the sampled coordinates into the array
@@ -105,14 +105,14 @@ function transformMesh(){
 
     // Define the matrial of the points
     const pointsMaterial = new THREE.PointsMaterial({
-        color:'#000000',
-        size: 0.02,
+        color:'#FF5733',
+        size: 0.01,
         //blending: THREE.AdditiveBlending,
         transparent: true,
         opacity: 0.98,
         depthWrite: false,
         sizeAttenuation: true,
-        alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
+        //alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
         
     })
 
@@ -153,12 +153,12 @@ function transformMesh(){
 function introAnimation() {
     controls.enabled = false //disable orbit controls to animate the camera
     
-    new TWEEN.Tween(camera.position.set(0.2, -0, 0)).to({ // from camera position
+    new TWEEN.Tween(camera.position.set(0.3, 0.6, -0.3)).to({ // from camera position
         x: -3.8, //desired x position to go
         y: 0.2, //desired y position to go
         z: -0 //desired z position to go
-    }, 500) // time take to animate
-    .delay(1000).easing(TWEEN.Easing.Quartic.InOut).start() // define delay, easing
+    }, 4500) // time take to animate
+    .delay(100).easing(TWEEN.Easing.Quartic.InOut).start() // define delay, easing
     .onComplete(function () { //on finish animation
         controls.enabled = true //enable orbit controls
         setOrbitControlsLimits() //enable controls limits
@@ -263,9 +263,9 @@ document.addEventListener('mousemove', (event) => {
           }
         },
         particles: {
-          color: { value: "#30BF97" },
+          color: { value: "#FF5733" },
           line_linked: {
-            color: "#3F7373",
+            color: "#FF5733",
             distance: 150,
             enable: true,
             opacity: 0.4,
@@ -281,7 +281,7 @@ document.addEventListener('mousemove', (event) => {
             speed: 2,
             straight: false
           },
-          number: { density: { enable: true, value_area: 800 }, value: 80 },
+          number: { density: { enable: true, value_area: 800 }, value: 40 },
           opacity: {
             anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
             random: false,
