@@ -93,6 +93,7 @@ canvas {
 	color: white;
 	padding: 20px 0;
 	text-align: center;
+	height: 30%; 
 }
 
 .footer a {
@@ -166,12 +167,12 @@ canvas {
 	top: 8%;
 	padding: 3em;
 	transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-	opacity: 1;
+	opacity: 0;
 	transform: translateY(0);
 }
 
 .vanish-move-down {
-	opacity: 0;
+	opacity: 1;
 	transform: translateY(20px);
 	/* Adjust as needed for the "slightly move down" effect */
 }
@@ -193,7 +194,7 @@ canvas {
 	width: 80vw;
 	align-items: center;
 	justify-content: space-between;
-	padding: 50px;
+	padding: 1em 3em 1em 3em;
 
 	/*the alpha value controls the transparency*/
 	background: rgba(255, 255, 255, 0.3);
@@ -284,6 +285,23 @@ canvas {
 	/* Aumenta el tamaño del fondo para mostrar el subrayado completo */
 }
 
+.shiny-link-purple {
+	color: #6800F8;
+	text-decoration: none;
+	/* Quitamos el subrayado predeterminado */
+	background-image: linear-gradient(to right, #6800F8 50%, transparent 50%);
+	background-repeat: no-repeat;
+	background-size: 100% 2px;
+	/* Ajusta el ancho y el alto del subrayado */
+	background-position: 0 100%;
+	transition: background-size 0.3s ease;
+	/* Transición suave */
+}
+
+.shiny-link-purple:hover {
+	background-size: 200% 2px;
+	/* Aumenta el tamaño del fondo para mostrar el subrayado completo */
+}
 
 /* title component */
 .title-container {
@@ -381,4 +399,29 @@ canvas {
 	font-size: 1.8em;
 	font-family: "Roboto", serif;
 	font-weight: 400;
+}
+
+/* join us component */
+.steps-container-left {
+	margin-left: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	padding-left: 7em;
+}
+
+.steps-container-right {
+	margin-left: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+	padding-right: 7em;
+}
+
+.steps-container-middle {
+	margin-left: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	justify-content: center;
 }

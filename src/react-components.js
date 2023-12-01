@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { setPointsBackground, animateCanvas } from './utils-canvas';
-import { reverseVanishAndMoveDown, vanishAndMoveDown } from './utils-animation';
+import { showUp, showDown } from './utils-animation';
+import { ContentHome } from './contents/contenthome';
+import { ContentJoinUs } from './contents/contentjoinus';
 
 const Footer = () => {
     return (<footer className="footer">
@@ -31,7 +33,7 @@ const Footer = () => {
 }
 
 
-const HeaderComputer = () => {
+const HeaderComputer = ({ setCurrentContent }) => {
     return (
         <header className="header" style={{
             color: "white",
@@ -78,15 +80,13 @@ const HeaderComputer = () => {
                     fontSize: "1.5em",
                 }}>
 
-                <ul className="menu"
-                >
-                    <li><a className="nav-list-desk" href="#home">Home</a></li>
-                    <li><a className="nav-list-desk" href="#team">Team</a></li>
-                    <li><a className="nav-list-desk" href="#joinus">Join Us</a></li>
-                    <li><a className="nav-list-desk" href="#news">News</a></li>
-                    <li><a className="nav-list-desk" href="#links">Links</a></li>
-                    <li><a className="nav-list-desk" href="#archive">Archive</a></li>
-
+                <ul className="menu">
+                    <li><a className="nav-list-desk" href="#home" onClick={() => setCurrentContent("home")}>Home</a></li>
+                    <li><a className="nav-list-desk" href="#joinus" onClick={() => setCurrentContent("joinus")}>Join Us</a></li>
+                    <li><a className="nav-list-desk" href="#team" onClick={() => setCurrentContent("team")}>Team</a></li>
+                    <li><a className="nav-list-desk" href="#news" onClick={() => setCurrentContent("news")}>News</a></li>
+                    <li><a className="nav-list-desk" href="#links" onClick={() => setCurrentContent("links")}>Links</a></li>
+                    <li><a className="nav-list-desk" href="#archive" onClick={() => setCurrentContent("archive")}>Archive</a></li>
                 </ul>
             </nav>
             <div className="social-icons"
@@ -183,234 +183,129 @@ const HeaderMobile = () => {
     );
 }
 
-const TitleComponent = () => {
+
+
+const Content = (props) => {
+
+    let [prevContent, setPrevContent] = useState("home");
+
+    // useEffect(() => {
+    //     if (props.currentContent === "home") {
+    //         reverseVanishAndMoveDown();
+    //     } else {
+    //         vanishAndMoveDown();
+    //     }
+    // }, [props.currentContent]);
+
+    useEffect(() => {
+        console.log('Current Content:', props.currentContent, 'Previous Content:', prevContent);
+        console.log(prevContent !== props.currentContent)
+        showUp();
+        if (prevContent !== props.currentContent) {
+            console.log("entro")
+            showDown();
+            // set timeout to wait for animation to finish
+            setTimeout(() => {
+                
+                setPrevContent(props.currentContent);
+                setTimeout(() => {
+                    showUp();
+                }
+                , 500);
+                console.log(prevContent);
+                
+            }, 500);
+            // update prevContent
+            
+            
+        }
+        
+    }, [props.currentContent]);
+
     return (
-        <div className="title-container">
-            <div className="hero-title hero-title--three-lines">
-                <h1>
-                    <span>
-                        <div className="u-splitted-lines-1">
-                            <div>MedARC</div>
-                        </div>
-                    </span>
-                    <span>
-                        <div className="u-splitted-lines-2">
-                            <div>Neuroimaging</div>
-                        </div>
-                    </span>
-                    <span>
-                        <div className="u-splitted-lines-3">
-                            <div>&amp;</div>
-                            <div style={{ color: '#FF5733' }}> AI </div>
-                            <div>Lab</div>
-                        </div>
-                    </span>
-                </h1>
-            </div>
-            <div className="hero-floating-text">
-                <div className="hero-floating-text__left">
-                    Exploring the human brain<br />
-                </div>
-                <div className="hero-floating-text__right">
-                    Open source, open science, open minds.
-                </div>
-            </div>
-        </div>
+        <>
+            {prevContent === "home" && <ContentHome />}
+            {prevContent === "joinus" && <ContentJoinUs />}
+        </>
     );
 };
 
-const ParagraphHome = () => {
-    return (
-        <div className="content-paragraph"
-            style={{
-                display: 'block',
-                marginTop: '10%',
-                width: '60%',
-                height: '80vh',
-                minHeight: '500px',
-                marginLeft: '15%',
-            }}>
-            <div className="purple-title">
-                Our Work
-            </div>
-            <div className="paragraph-normal">
-                <p>Our lab develops novel approaches to understanding neural data using the latest advancements from AI. Topics we are tackling include reconstruction of visual perception from fMRI brain activity and developing foundational neuroimaging models.</p>
-            </div>
-            <div className="paragraph-normal">
-                <p>All projects are worked on in the public <a href="https://discord.gg/pMhsYwJUQu" className="shiny-link">MedARC discord server</a></p>
-            </div>
-            <div className="paragraph-normal">
-                <p><a href="https://www.notion.so/MedARC-Neuroimaging-AI-Lab-e1116f115715456a96bb053a304b6292?pvs=21" className="shiny-link">We are open to volunteer contributions!</a> Co-author with us on our next project!</p>
-            </div>
-            <div className="paragraph-normal">
-                <p><a href="https://groups.google.com/g/medarc-fmri" className="shiny-link">Subscribe</a> to our reading group <a href="https://www.notion.so/MedARC-Neuroimaging-AI-Lab-e1116f115715456a96bb053a304b6292?pvs=21" className="shiny-link">Trends in NeuroAI</a>!</p>
-            </div>
-        </div>
-    )
-}
 
 
-
-
-const ParagraphHomeGlass = () => {
-    return (
-        <div
-            style={{
-                display: "flex",
-
-            }}
-        >
-            <div style={{
-                minWidth: "50%",
-                height: "50%",
-            }}>
-            </div>
-            <div className="home"
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                <div className='glassmorph' style={{
-                    width: "50%",
-                    minHeight: "30%",
-                    height: "200px",
-                    minWidth: "600px",
-                    margin: "auto",
-                    marginTop: "50px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center", // Alinea los elementos horizontalmente al centro
-                    justifyContent: "center", // Alinea los elementos verticalmente al centro
-
-                }}>
-                    <p
-                        style={{
-                            fontSize: "1.2em",
-
-
-                        }}>
-                        Our lab develops novel approaches to understanding neural data using the latest advancements from AI. Topics we are tackling include reconstruction of visual perception from fMRI brain activity and developing foundational neuroimaging models.</p>
-
-                    <ul className='uli-content'>
-                        <li><strong>All projects are worked on in the public <a href="https://discord.gg/pMhsYwJUQu" className="shiny-link">MedARC discord server</a></strong></li>
-                        <li><strong><a href="https://www.notion.so/MedARC-Neuroimaging-AI-Lab-e1116f115715456a96bb053a304b6292?pvs=21" className="shiny-link">We are open to volunteer contributions!</a> Co-author with us on our next project!</strong></li>
-                        <li><strong><a href="https://groups.google.com/g/medarc-fmri" className="shiny-link">Subscribe</a> to our reading group <a href="https://www.notion.so/MedARC-Neuroimaging-AI-Lab-e1116f115715456a96bb053a304b6292?pvs=21" className="shiny-link">*Trends in NeuroAI*</a>!</strong></li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-    )
-}
-
-
-const ContentHome = () => {
-    return (
-        <div className="content"
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "90vh",
-            }
-            }
-
-        >
-            <TitleComponent />
-            <ParagraphHome />
-
-
-        </div>
-    )
-}
-
-
-const Content = () => {
-
-    return (
-
-        <ContentHome />
-    )
-}
-
-
-  
-  function BlockController(props) {
+function BlockController(props) {
     const positionsVH = [0, 50, 140, 200]; // Array of positions in vh
-  
-    useEffect(() => {
-      const handleScroll = (event) => {
-        var viewportHeight = window.innerHeight;
-        var currentPosition = event.target.scrollTop;
-        console.log(currentPosition);
-  
-        // Convert VH positions to pixels
-        const positionsPixels = positionsVH.map(vh => (viewportHeight * vh) / 100);
-        console.log('Positions in pixels:', positionsPixels);
-  
-        // Determine the current block
-        let currentBlock = positionsPixels.findIndex((position, index) => {
-          const nextPosition = positionsPixels[index + 1] || Infinity;
-          return currentPosition >= position && currentPosition < nextPosition;
-        });
-  
-        if (currentBlock === -1) {
-          props.setCurrentBlock(positionsPixels.length - 1); // If the currentPosition exceeds the last element in positionsPixels
-        } else {
-            props.setCurrentBlock(currentBlock);
-        }
-  
-        console.log('Current Block:', currentBlock);
-  
-      };
-  
-      const rootElement = document.getElementById("react-root");
-      rootElement.addEventListener('scroll', handleScroll);
-  
-      return () => {
-        rootElement.removeEventListener('scroll', handleScroll);
-      }
-    }, []);
-  
-    return (
-      <>
-        {/* Your JSX markup here */}
-      </>
-    );
-  }
 
-  const CanvasAnimator = (props) => {
+    useEffect(() => {
+        const handleScroll = (event) => {
+            var viewportHeight = window.innerHeight;
+            var currentPosition = event.target.scrollTop;
+            console.log(currentPosition);
+
+            // Convert VH positions to pixels
+            const positionsPixels = positionsVH.map(vh => (viewportHeight * vh) / 100);
+            console.log('Positions in pixels:', positionsPixels);
+
+            // Determine the current block
+            let currentBlock = positionsPixels.findIndex((position, index) => {
+                const nextPosition = positionsPixels[index + 1] || Infinity;
+                return currentPosition >= position && currentPosition < nextPosition;
+            });
+
+            if (currentBlock === -1) {
+                props.setCurrentBlock(positionsPixels.length - 1); // If the currentPosition exceeds the last element in positionsPixels
+            } else {
+                props.setCurrentBlock(currentBlock);
+            }
+
+            console.log('Current Block:', currentBlock);
+
+        };
+
+        const rootElement = document.getElementById("react-root");
+        rootElement.addEventListener('scroll', handleScroll);
+
+        return () => {
+            rootElement.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
+    return (
+        <>
+            {/* Your JSX markup here */}
+        </>
+    );
+}
+
+const CanvasAnimator = (props) => {
     let prevBlock = 0;
 
     const updatePrevBlock = (newBlock) => {
         prevBlock = newBlock;
     }
     useEffect(() => {
-      console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
-      if (true) {
-        updatePrevBlock(props.currentBlock);
-        if (props.currentBlock === 1) {
-            setPointsBackground(3);
-            animateCanvas('right', '100vh');
-            animateCanvas('up', '30vh');
+        console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
+        if (true) {
+            updatePrevBlock(props.currentBlock);
+            if (props.currentBlock === 1) {
+                setPointsBackground(3);
+                animateCanvas('right', '100vh');
+                animateCanvas('up', '30vh');
+            }
+            if (props.currentBlock === 0) {
+                animateCanvas('right', '0vh');
+                animateCanvas('up', '0vh');
+                setPointsBackground(40);
+            }
         }
-        if (props.currentBlock === 0) {
-            animateCanvas('right', '0vh');
-            animateCanvas('up', '0vh');
-            setPointsBackground(40);
-
-        }
-    }
     }, [props.currentBlock]);
-  
+
     return (
-      <>
-        {/* Your JSX markup here */}
-      </>
+        <>
+            {/* Your JSX markup here */}
+        </>
     );
-  }
-  
+}
+
 
 class WebPage extends React.Component {
 
@@ -418,7 +313,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "home",
+            currentContent: "joinus",
             currentBlock: 0,
         };
 
@@ -430,6 +325,10 @@ class WebPage extends React.Component {
         this.setState({ currentBlock: newBlock });
     }
 
+    setCurrentContent = (newContent) => {
+        this.setState({ currentContent: newContent });
+    }
+
     // Lifecycle method when component is mounted
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
@@ -438,7 +337,7 @@ class WebPage extends React.Component {
     // Lifecycle method when component is about to unmount
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize);
-        
+
     }
 
     // Method to handle window resize
@@ -450,16 +349,20 @@ class WebPage extends React.Component {
 
 
     render() {
-        
+
         return (
             <>
-                {this.state.isMobile ? <HeaderMobile /> : <HeaderComputer />}
-                <Content />
+                {this.state.isMobile ?
+                    <HeaderMobile /> :
+                    <HeaderComputer
+                        setCurrentContent={this.setCurrentContent}
+                    />}
+                <Content currentContent={this.state.currentContent} />
                 <Footer />
-                <BlockController 
-                currentBlock={this.state.currentBlock}
-                setCurrentBlock={this.setCurrentBlock}
-                 />
+                <BlockController
+                    currentBlock={this.state.currentBlock}
+                    setCurrentBlock={this.setCurrentBlock}
+                />
                 <CanvasAnimator currentBlock={this.state.currentBlock} />
             </>
 
