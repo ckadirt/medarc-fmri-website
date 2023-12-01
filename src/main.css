@@ -425,3 +425,58 @@ canvas {
 	justify-content: space-evenly;
 	justify-content: center;
 }
+
+/* team component */
+
+
+/* styles.css */
+
+.team-content-container {
+	margin-top: 30vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.team-grid {
+	display: grid;
+	gap: 1rem;
+  }
+  
+  .team-member {
+	border: 1px solid #ccc;
+	padding: 1rem;
+	text-align: center;
+	overflow: hidden; /* Hide overflow to clip the images */
+  }
+  
+  .team-member img {
+	width: 100%; /* Full width of the container */
+	height: 200px; /* Set a fixed height, adjust as needed */
+	object-fit: cover; /* Cover the container, clip the excess */
+	border: 1px solid #ccc;
+  }
+  
+  .team-member h2 {
+	margin: 0.5rem 0;
+  }
+  
+  .team-member p {
+	margin: 0;
+  }
+  
+  .team-member a {
+	color: #007bff;
+	text-decoration: none;
+  }
+  
+  .team-member a:hover {
+	text-decoration: underline;
+  }
+  
+  /* Responsive grid columns */
+  .grid-3 {
+	grid-template-columns: repeat(3, 1fr);
+  }
+  

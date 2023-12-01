@@ -3,6 +3,7 @@ import { setPointsBackground, animateCanvas } from './utils-canvas';
 import { showUp, showDown } from './utils-animation';
 import { ContentHome } from './contents/contenthome';
 import { ContentJoinUs } from './contents/contentjoinus';
+import { ContentTeam } from './contents/contentteam';
 
 const Footer = () => {
     return (<footer className="footer">
@@ -206,26 +207,34 @@ const Content = (props) => {
             showDown();
             // set timeout to wait for animation to finish
             setTimeout(() => {
-                
+
                 setPrevContent(props.currentContent);
                 setTimeout(() => {
                     showUp();
                 }
-                , 500);
+                    , 500);
                 console.log(prevContent);
-                
+
             }, 500);
             // update prevContent
-            
-            
+
+
         }
-        
+
     }, [props.currentContent]);
 
     return (
         <>
-            {prevContent === "home" && <ContentHome />}
+            {prevContent === "home" && <> 
+            <ContentHome />                 
+            <BlockController
+                currentBlock={props.currentBlock}
+                setCurrentBlock={props.setCurrentBlock}
+            />
+            <CanvasAnimator currentBlock={props.currentBlock} />
+            </>}
             {prevContent === "joinus" && <ContentJoinUs />}
+            {prevContent === "team" && <ContentTeam />}
         </>
     );
 };
@@ -283,9 +292,10 @@ const CanvasAnimator = (props) => {
         prevBlock = newBlock;
     }
     useEffect(() => {
+        console.log(props)
         console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
         if (true) {
-            updatePrevBlock(props.currentBlock);
+            
             if (props.currentBlock === 1) {
                 setPointsBackground(3);
                 animateCanvas('right', '100vh');
@@ -313,7 +323,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "joinus",
+            currentContent: "team",
             currentBlock: 0,
         };
 
@@ -357,13 +367,13 @@ class WebPage extends React.Component {
                     <HeaderComputer
                         setCurrentContent={this.setCurrentContent}
                     />}
-                <Content currentContent={this.state.currentContent} />
-                <Footer />
-                <BlockController
-                    currentBlock={this.state.currentBlock}
+                <Content
+                    currentContent={this.state.currentContent}
                     setCurrentBlock={this.setCurrentBlock}
+                    currentBlock={this.state.currentBlock}
                 />
-                <CanvasAnimator currentBlock={this.state.currentBlock} />
+                <Footer />
+                
             </>
 
         )
