@@ -21,7 +21,7 @@ loader.setDRACOLoader(dracoLoader)
 
 /////////////////////////////////////////////////////////////////////////
 ///// DIV CONTAINER CREATION TO HOLD THREEJS EXPERIENCE
-const container = document.getElementById( 'canvas' );
+const container = document.getElementById('canvas');
 document.body.appendChild(container)
 
 /////////////////////////////////////////////////////////////////////////
@@ -31,28 +31,28 @@ scene.background = null// new THREE.Color('white')
 //scene.background.transparent = true
 /////////////////////////////////////////////////////////////////////////
 ///// RENDERER CONFIG
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true}) // turn on antialias
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) // turn on antialias
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) //set pixel ratio
-renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700*2)) // set size
+renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 2)) // set size
 renderer.outputEncoding = THREE.sRGBEncoding // set color encoding
 container.appendChild(renderer.domElement) // add the renderer to html div
 
 /////////////////////////////////////////////////////////////////////////
 ///// CAMERAS CONFIG
-const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 100)
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 10000)
 //camera.position.set(34,16,20)
 scene.add(camera)
 
 /////////////////////////////////////////////////////////////////////////
 ///// MAKE EXPERIENCE FULL SCREEN
 window.addEventListener('resize', () => {
-    const width = window.innerWidth
-    const height = window.innerHeight
-    camera.aspect = width / height
-    camera.updateProjectionMatrix()
+  const width = window.innerWidth
+  const height = window.innerHeight
+  camera.aspect = width / height
+  camera.updateProjectionMatrix()
 
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(2)
+  renderer.setSize(width, height)
+  renderer.setPixelRatio(2)
 })
 
 /////////////////////////////////////////////////////////////////////////
@@ -72,61 +72,61 @@ scene.add(ambient)
 ///// LOADING GLB/GLTF MODEL FROM BLENDER
 loader.load('models/gltf/brain_final.glb', function (gltf) {
 
-    gltf.scene.traverse((obj) => {
-        if (obj.isMesh) {
-            sampler = new MeshSurfaceSampler(obj).build()
-        }
-    })
+  gltf.scene.traverse((obj) => {
+    if (obj.isMesh) {
+      sampler = new MeshSurfaceSampler(obj).build()
+    }
+  })
 
-    transformMesh()
+  transformMesh()
 })
 
 
 /////////////////////////////////////////////////////////////////////////
 ///// TRANSFORM MESH INTO POINTS
 let sampler
-let uniforms = { mousePos: {value: new THREE.Vector3()}}
+let uniforms = { mousePos: { value: new THREE.Vector3() } }
 let pointsGeometry = new THREE.BufferGeometry()
-const cursor = {x:0, y:0}
+const cursor = { x: 0, y: 0 }
 const vertices = []
 const tempPosition = new THREE.Vector3()
 
-function transformMesh(){
-    // Loop to sample a coordinate for each points
-    for (let i = 0; i < 80000; i ++) {
-        // Sample a random position in the model
-        sampler.sample(tempPosition)
-        // Push the coordinates of the sampled coordinates into the array
-        vertices.push(tempPosition.x, tempPosition.y, tempPosition.z)
-    }
-    
-    // Define all points positions from the previously created array
-    pointsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
+function transformMesh() {
+  // Loop to sample a coordinate for each points
+  for (let i = 0; i < 50000; i++) {
+    // Sample a random position in the model
+    sampler.sample(tempPosition)
+    // Push the coordinates of the sampled coordinates into the array
+    vertices.push(tempPosition.x, tempPosition.y - 0.5, tempPosition.z)
+  }
 
-    // Define the matrial of the points
-    const pointsMaterial = new THREE.PointsMaterial({
-        color:'#FF5733',
-        size: 0.01,
-        //blending: THREE.AdditiveBlending,
-        transparent: true,
-        opacity: 0.98,
-        depthWrite: false,
-        sizeAttenuation: true,
-        //alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
-        
-    })
+  // Define all points positions from the previously created array
+  pointsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3))
 
-    // Create the custom vertex shader injection
-    pointsMaterial.onBeforeCompile = function(shader) {
-        shader.uniforms.mousePos = uniforms.mousePos
-        
-        shader.vertexShader = `
+  // Define the matrial of the points
+  const pointsMaterial = new THREE.PointsMaterial({
+    color: '#FF5733',
+    size: 0.004,
+    //blending: THREE.AdditiveBlending,
+    transparent: true,
+    opacity: 1,
+    depthWrite: false,
+    sizeAttenuation: true,
+    //alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
+
+  })
+
+  // Create the custom vertex shader injection
+  pointsMaterial.onBeforeCompile = function (shader) {
+    shader.uniforms.mousePos = uniforms.mousePos
+
+    shader.vertexShader = `
           uniform vec3 mousePos;
           varying float vNormal;
           
           ${shader.vertexShader}`.replace(
-          `#include <begin_vertex>`,
-          `#include <begin_vertex>   
+      `#include <begin_vertex>`,
+      `#include <begin_vertex>   
             vec3 seg = position - mousePos;
             vec3 dir = normalize(seg);
             float dist = length(seg);
@@ -136,14 +136,14 @@ function transformMesh(){
               vNormal = force /0.9;
             }
           `
-        )
-    }
+    )
+  }
 
-    // Create an instance of points based on the geometry & material
-    const points = new THREE.Points(pointsGeometry, pointsMaterial)
+  // Create an instance of points based on the geometry & material
+  const points = new THREE.Points(pointsGeometry, pointsMaterial)
 
-    // Add them into the main group
-    scene.add(points)
+  // Add them into the main group
+  scene.add(points)
 
 }
 
@@ -151,19 +151,19 @@ function transformMesh(){
 /////////////////////////////////////////////////////////////////////////
 //// INTRO CAMERA ANIMATION USING TWEEN
 function introAnimation() {
-    controls.enabled = false //disable orbit controls to animate the camera
-    
-    new TWEEN.Tween(camera.position.set(0.3, 0.6, -0.3)).to({ // from camera position
-        x: -3.8, //desired x position to go
-        y: 0.2, //desired y position to go
-        z: -0 //desired z position to go
-    }, 4500) // time take to animate
+
+
+  new TWEEN.Tween(camera.position.set(0.1, 0.1, -0.1)).to({ // from camera position
+    x: 1.7, //desired x position to go
+    y: -0.03, //desired y position to go
+    z: 0.01 //desired z position to go
+  }, 4500) // time take to animate
     .delay(100).easing(TWEEN.Easing.Quartic.InOut).start() // define delay, easing
     .onComplete(function () { //on finish animation
-        controls.enabled = true //enable orbit controls
-        setOrbitControlsLimits() //enable controls limits
-        //controls.camera.rotate.set(0,0,0) //reset camera rotation
-        TWEEN.remove(this) // remove the animation from memory
+      controls.enabled = true //enable orbit controls
+      setOrbitControlsLimits() //enable controls limits
+      //controls.camera.rotate.set(0,0,0) //reset camera rotation
+      TWEEN.remove(this) // remove the animation from memory
     })
 
 }
@@ -172,19 +172,19 @@ introAnimation() // call intro animation on start
 
 /////////////////////////////////////////////////////////////////////////
 //// DEFINE ORBIT CONTROLS LIMITS
-function setOrbitControlsLimits(){
-    controls.enableDamping = true
-    controls.dampingFactor = 0.4
-    controls.minDistance = 0
-    controls.maxDistance = 90
-    controls.enableRotate = true
-    controls.enableZoom = false
-    controls.zoomSpeed = 0.5
-    controls.autoRotate = true
-    
+function setOrbitControlsLimits() {
+  controls.enableDamping = true
+  controls.dampingFactor = 0.4
+
+  controls.enableRotate = true
+  controls.enableZoom = false
+  controls.zoomSpeed = 0.5
+  controls.autoRotate = true
+
+
 }
 
-function onMouseWheel(event){
+function onMouseWheel(event) {
 
 }
 
@@ -199,132 +199,220 @@ const targetCursor = { x: 0, y: 0 }; // Target position for the cursor
 const lerpFactor = 0.1; // Factor for linear interpolation
 
 function renderLoop() {
-    TWEEN.update();
-    controls.update();
-    renderer.render(scene, camera);
- 
-    
+  TWEEN.update();
+  controls.update();
+  renderer.render(scene, camera);
 
-    const currentTime = Date.now();
-    if (currentTime - lastMouseMoveTime > idleThreshold) {
-        // Gradually move cursor values towards 0
-        if (Math.abs(cursor.x) > minMovementThreshold || Math.abs(cursor.y) > minMovementThreshold) {
-            cursor.x *= decayRate;
-            cursor.y *= decayRate;
-        }
-    } else {
-        // Interpolate towards the target cursor position when mouse is moving
-        cursor.x += (targetCursor.x - cursor.x) * lerpFactor;
-        cursor.y += (targetCursor.y - cursor.y) * lerpFactor;
+
+
+  const currentTime = Date.now();
+  if (currentTime - lastMouseMoveTime > idleThreshold) {
+    // Gradually move cursor values towards 0
+    if (Math.abs(cursor.x) > minMovementThreshold || Math.abs(cursor.y) > minMovementThreshold) {
+      cursor.x *= decayRate;
+      cursor.y *= decayRate;
     }
+  } else {
+    // Interpolate towards the target cursor position when mouse is moving
+    cursor.x += (targetCursor.x - cursor.x) * lerpFactor;
+    cursor.y += (targetCursor.y - cursor.y) * lerpFactor;
+  }
 
-    // Update uniforms with the new cursor position
-    uniforms.mousePos.value.set(cursor.x, cursor.y, 0);
+  // Update uniforms with the new cursor position
+  uniforms.mousePos.value.set(cursor.x, cursor.y, 0);
 
-    requestAnimationFrame(renderLoop);
+  requestAnimationFrame(renderLoop);
 }
 
 renderLoop();
 
 // check resize screen and update accordingly
 window.addEventListener('resize', (event) => {
-    event.preventDefault();
-    console.log(window.innerWidth, window.innerHeight)
-    renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700*18/9))
+  event.preventDefault();
+  console.log(window.innerWidth, window.innerHeight);
+  
 }, false);
 
 document.addEventListener('mousemove', (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    // Set the target cursor position
-    targetCursor.x = (event.clientX / window.innerWidth) - 0.5;
-    targetCursor.y = event.clientY / window.innerHeight - 0.5;
+  // Set the target cursor position
+  targetCursor.x = (event.clientX / window.innerWidth) - 0.5;
+  targetCursor.y = event.clientY / window.innerHeight - 0.5;
 
-    lastMouseMoveTime = Date.now();
+  lastMouseMoveTime = Date.now();
 }, false);
 
 (async () => {
+  tsParticles.load("tsparticles", {
+    fps_limit: 60,
+    interactivity: {
+
+      events: {
+        onclick: { enable: true, mode: "push" },
+        onhover: {
+          enable: true,
+          mode: "attract",
+          parallax: { enable: false, force: 60, smooth: 10 }
+        },
+        resize: true
+      },
+      modes: {
+        push: { quantity: 4 },
+        attract: { distance: 200, duration: 0.4, factor: 5 }
+      }
+    },
+    particles: {
+      color: { value: "#FF5733" },
+      line_linked: {
+        color: "#FF5733",
+        distance: 150,
+        enable: true,
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        attract: { enable: false, rotateX: 600, rotateY: 1200 },
+        bounce: false,
+        direction: "none",
+        enable: true,
+        out_mode: "out",
+        random: false,
+        speed: 2,
+        straight: false
+      },
+      number: { density: { enable: true, value_area: 800 }, value: 30 },
+      opacity: {
+        anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
+        random: false,
+        value: 0.5
+      },
+      shape: {
+        character: {
+          fill: false,
+          font: "Verdana",
+          style: "",
+          value: "*",
+          weight: "400"
+        },
+        image: {
+          height: 100,
+          replace_color: true,
+          src: "images/github.svg",
+          width: 100
+        },
+        polygon: { nb_sides: 5 },
+        stroke: { color: "#575859", width: 0 },
+        type: "circle"
+      },
+      size: {
+        anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
+        random: true,
+        value: 5
+      }
+    },
+    polygon: {
+      draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
+      move: { radius: 10 },
+      scale: 1,
+      type: "none",
+      url: ""
+    },
+    retina_detect: true
+  });
+
+})();
+
+function reductePointsBackground() {
+  (async () => {
     tsParticles.load("tsparticles", {
-        fps_limit: 60,
-        interactivity: {
-          
-          events: {
-            onclick: { enable: true, mode: "push" },
-            onhover: {
-              enable: true,
-              mode: "attract",
-              parallax: { enable: false, force: 60, smooth: 10 }
-            },
-            resize: true
-          },
-          modes: {
-            push: { quantity: 4 },
-            attract: { distance: 200, duration: 0.4, factor: 5 }
-          }
-        },
-        particles: {
-          color: { value: "#FF5733" },
-          line_linked: {
-            color: "#FF5733",
-            distance: 150,
+      fps_limit: 60,
+      interactivity: {
+
+        events: {
+          onclick: { enable: true, mode: "push" },
+          onhover: {
             enable: true,
-            opacity: 0.4,
-            width: 1
+            mode: "attract",
+            parallax: { enable: false, force: 60, smooth: 10 }
           },
-          move: {
-            attract: { enable: false, rotateX: 600, rotateY: 1200 },
-            bounce: false,
-            direction: "none",
-            enable: true,
-            out_mode: "out",
-            random: false,
-            speed: 2,
-            straight: false
-          },
-          number: { density: { enable: true, value_area: 800 }, value: 40 },
-          opacity: {
-            anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
-            random: false,
-            value: 0.5
-          },
-          shape: {
-            character: {
-              fill: false,
-              font: "Verdana",
-              style: "",
-              value: "*",
-              weight: "400"
-            },
-            image: {
-              height: 100,
-              replace_color: true,
-              src: "images/github.svg",
-              width: 100
-            },
-            polygon: { nb_sides: 5 },
-            stroke: { color: "#575859", width: 0 },
-            type: "circle"
-          },
-          size: {
-            anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
-            random: true,
-            value: 5
-          }
+          resize: true
         },
-        polygon: {
-          draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
-          move: { radius: 10 },
-          scale: 1,
-          type: "none",
-          url: ""
+        modes: {
+          push: { quantity: 4 },
+          attract: { distance: 200, duration: 0.4, factor: 5 }
+        }
+      },
+      particles: {
+        color: { value: "#FF5733" },
+        line_linked: {
+          color: "#FF5733",
+          distance: 150,
+          enable: true,
+          opacity: 0.4,
+          width: 1
         },
-        retina_detect: true
-      });
-      
+        move: {
+          attract: { enable: false, rotateX: 600, rotateY: 1200 },
+          bounce: false,
+          direction: "none",
+          enable: true,
+          out_mode: "out",
+          random: false,
+          speed: 2,
+          straight: false
+        },
+        number: { density: { enable: true, value_area: 800 }, value: 3 },
+        opacity: {
+          anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
+          random: false,
+          value: 0.5
+        },
+        shape: {
+          character: {
+            fill: false,
+            font: "Verdana",
+            style: "",
+            value: "*",
+            weight: "400"
+          },
+          image: {
+            height: 100,
+            replace_color: true,
+            src: "images/github.svg",
+            width: 100
+          },
+          polygon: { nb_sides: 5 },
+          stroke: { color: "#575859", width: 0 },
+          type: "circle"
+        },
+        size: {
+          anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
+          random: true,
+          value: 5
+        }
+      },
+      polygon: {
+        draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
+        move: { radius: 10 },
+        scale: 1,
+        type: "none",
+        url: ""
+      },
+      retina_detect: true
+    });
+    renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 18 / 9));
+
   })();
+}
 
 
-  const rootElement = document.getElementById("react-root");
-  const root = createRoot(rootElement);
 
-  root.render(<WebPage />, rootElement);
+
+
+const rootElement = document.getElementById("react-root");
+
+
+const root = createRoot(rootElement);
+
+root.render(<WebPage />, rootElement);

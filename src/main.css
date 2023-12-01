@@ -7,11 +7,13 @@ html {
 	background-color: #edecec;
 	scroll-behavior: smooth;
 	scroll-snap-type: mandatory;
+	overflow: auto;
 }
 
 /* fonts */
 @import url('https://fonts.cdnfonts.com/css/canela');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+Display:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&display=swap');
+
 
 * {
 	
@@ -22,7 +24,7 @@ html {
 
 a {
 	text-decoration: none;
-	color: inherit;
+	color: #606060;
 	font-size: inherit;
 	z-index: 99999;
 }
@@ -38,14 +40,16 @@ a.header-social-icon {
 	width: 100%;
 	height: 100%;
 	overflow: auto; 
+	scroll-behavior: smooth;
 }
 
 #canvas {
 
 	position: fixed;
-	top: 20vh;
-	left: -30vh;
+	left: 0vh;
+	
 	z-index: -1;
+	transition: left 0.8s ease-in-out; 
 
 }
 
@@ -106,9 +110,9 @@ canvas {
 }
 
 .header {
-	background-color: black;
+	background-color: white;
 	/* Dark blue color */
-	color: white;
+	color: #606060;
 	padding: 10px 0;
 	text-align: center;
 }
@@ -125,7 +129,7 @@ canvas {
 }
 
 .header .menu a {
-	color: white;
+	color: #606060;
 	text-decoration: none;
 	font-size: 16px;
 }
@@ -242,20 +246,25 @@ canvas {
   }
 
   .shiny-link {
-	color: #21BF92
-	  }
-
+	color: #FF3805;
+	text-decoration: none; /* Quitamos el subrayado predeterminado */
+	background-image: linear-gradient(to right, #FF3805 50%, transparent 50%);
+	background-repeat: no-repeat;
+	background-size: 100% 2px; /* Ajusta el ancho y el alto del subrayado */
+	background-position: 0 100%;
+	transition: background-size 0.3s ease; /* Transición suave */
+  }
+  
   .shiny-link:hover {
-	color: rgb(0, 247, 177)
-	  }
-
-
+	background-size: 200% 2px; /* Aumenta el tamaño del fondo para mostrar el subrayado completo */
+  }
+  
 
 /* title component */
 .title-container {
 	display: block;
 	color: #141414;
-	height: 60vh;
+	height: 70vh;
 	width: 80%;
 	margin: 10vh auto;
 	font-size: 4.5em;
@@ -313,7 +322,8 @@ canvas {
 	left: 0;
 	z-index: 4;
 	color:#606060;
-	font-size: 0.4em;
+	font-size: 0.3em;
+	font-family: "Noto Serif Display", serif;
 }
 
 .hero-floating-text__left {
@@ -328,4 +338,21 @@ canvas {
 	top: 7%;
 	right: 18%;
 	max-width: 15%;
+}
+
+
+/* paragraph component */
+
+.paragraph-normal {
+	font-size: 2em;
+	font-family: "Noto Serif Display", serif;
+	font-weight: 300;
+	color: #141414;
+}
+
+.purple-title {
+	color: #6800F8;
+	font-size: 1.8em;
+	font-family: "Roboto", serif;
+	font-weight: 400;
 }
