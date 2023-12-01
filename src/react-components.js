@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { setPointsBackground, animateCanvas } from './utils-canvas';
+import { reverseVanishAndMoveDown, vanishAndMoveDown } from './utils-animation';
 
 const Footer = () => {
     return (<footer className="footer">
@@ -331,115 +333,36 @@ const Content = () => {
         <ContentHome />
     )
 }
-function reductePointsBackground() {
-    (async () => {
-      tsParticles.load("tsparticles", {
-        fps_limit: 60,
-        interactivity: {
+
+
   
-          events: {
-            onclick: { enable: true, mode: "push" },
-            onhover: {
-              enable: true,
-              mode: "attract",
-              parallax: { enable: false, force: 60, smooth: 10 }
-            },
-            resize: true
-          },
-          modes: {
-            push: { quantity: 4 },
-            attract: { distance: 200, duration: 0.4, factor: 5 }
-          }
-        },
-        particles: {
-          color: { value: "#FF5733" },
-          line_linked: {
-            color: "#FF5733",
-            distance: 150,
-            enable: true,
-            opacity: 0.4,
-            width: 1
-          },
-          move: {
-            attract: { enable: false, rotateX: 600, rotateY: 1200 },
-            bounce: false,
-            direction: "none",
-            enable: true,
-            out_mode: "out",
-            random: false,
-            speed: 2,
-            straight: false
-          },
-          number: { density: { enable: true, value_area: 800 }, value: 3 },
-          opacity: {
-            anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
-            random: false,
-            value: 0.5
-          },
-          shape: {
-            character: {
-              fill: false,
-              font: "Verdana",
-              style: "",
-              value: "*",
-              weight: "400"
-            },
-            image: {
-              height: 100,
-              replace_color: true,
-              src: "images/github.svg",
-              width: 100
-            },
-            polygon: { nb_sides: 5 },
-            stroke: { color: "#575859", width: 0 },
-            type: "circle"
-          },
-          size: {
-            anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
-            random: true,
-            value: 5
-          }
-        },
-        polygon: {
-          draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
-          move: { radius: 10 },
-          scale: 1,
-          type: "none",
-          url: ""
-        },
-        retina_detect: true
-      });
-      renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 18 / 9));
-  
-    })();
-  }
-  
-function CanvasController() {
-    const targetPositionVH = 70; // Example: 50vh
-  
-    const animateCanvas = () => {
-      var canvas = document.getElementById('canvas');
-      if (canvas) {
-        canvas.style.left = '100vh';
-      } else {
-        console.error('Element with ID "canvas" not found.');
-      }
-    }
-  
+  function BlockController(props) {
+    const positionsVH = [0, 50, 140, 200]; // Array of positions in vh
   
     useEffect(() => {
       const handleScroll = (event) => {
         var viewportHeight = window.innerHeight;
-        var targetPositionPixels = (viewportHeight * targetPositionVH) / 100;
-  
         var currentPosition = event.target.scrollTop;
-  
         console.log(currentPosition);
   
-        if (currentPosition >= targetPositionPixels) {
-          reductePointsBackground();
-          animateCanvas();
+        // Convert VH positions to pixels
+        const positionsPixels = positionsVH.map(vh => (viewportHeight * vh) / 100);
+        console.log('Positions in pixels:', positionsPixels);
+  
+        // Determine the current block
+        let currentBlock = positionsPixels.findIndex((position, index) => {
+          const nextPosition = positionsPixels[index + 1] || Infinity;
+          return currentPosition >= position && currentPosition < nextPosition;
+        });
+  
+        if (currentBlock === -1) {
+          props.setCurrentBlock(positionsPixels.length - 1); // If the currentPosition exceeds the last element in positionsPixels
+        } else {
+            props.setCurrentBlock(currentBlock);
         }
+  
+        console.log('Current Block:', currentBlock);
+  
       };
   
       const rootElement = document.getElementById("react-root");
@@ -457,17 +380,54 @@ function CanvasController() {
     );
   }
 
+  const CanvasAnimator = (props) => {
+    let prevBlock = 0;
+
+    const updatePrevBlock = (newBlock) => {
+        prevBlock = newBlock;
+    }
+    useEffect(() => {
+      console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
+      if (true) {
+        updatePrevBlock(props.currentBlock);
+        if (props.currentBlock === 1) {
+            setPointsBackground(3);
+            animateCanvas('right', '100vh');
+            animateCanvas('up', '30vh');
+        }
+        if (props.currentBlock === 0) {
+            animateCanvas('right', '0vh');
+            animateCanvas('up', '0vh');
+            setPointsBackground(40);
+
+        }
+    }
+    }, [props.currentBlock]);
+  
+    return (
+      <>
+        {/* Your JSX markup here */}
+      </>
+    );
+  }
+  
+
 class WebPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "home"
+            currentContent: "home",
+            currentBlock: 0,
         };
 
         // Bind the handleResize method to the component
         this.handleResize = this.handleResize.bind(this);
+    }
+
+    setCurrentBlock = (newBlock) => {
+        this.setState({ currentBlock: newBlock });
     }
 
     // Lifecycle method when component is mounted
@@ -490,12 +450,17 @@ class WebPage extends React.Component {
 
 
     render() {
+        
         return (
             <>
                 {this.state.isMobile ? <HeaderMobile /> : <HeaderComputer />}
                 <Content />
                 <Footer />
-                <CanvasController />
+                <BlockController 
+                currentBlock={this.state.currentBlock}
+                setCurrentBlock={this.setCurrentBlock}
+                 />
+                <CanvasAnimator currentBlock={this.state.currentBlock} />
             </>
 
         )

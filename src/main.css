@@ -1,7 +1,7 @@
 body,
 html {
 	margin: 0;
-	padding: 0;	
+	padding: 0;
 	display: block;
 	font-family: Roboto, sans-serif;
 	background-color: #edecec;
@@ -16,7 +16,7 @@ html {
 
 
 * {
-	
+
 	/* or absolute, fixed, or sticky, as needed */
 	z-index: inherit;
 }
@@ -39,7 +39,7 @@ a.header-social-icon {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	overflow: auto; 
+	overflow: auto;
 	scroll-behavior: smooth;
 }
 
@@ -47,9 +47,11 @@ a.header-social-icon {
 
 	position: fixed;
 	left: 0vh;
-	
+	top: 0vh;
+
 	z-index: -1;
-	transition: left 0.8s ease-in-out; 
+	transition: left 0.8s ease-in-out, top 0.8s ease-in-out;
+
 
 }
 
@@ -69,11 +71,21 @@ canvas {
 	left: 0;
 	width: 100%;
 	height: 40px;
-	z-index: 2;
+	z-index: 20;
 	background-color: rgba(0, 0, 0, 0.5);
+
+	transition: top 0.7s ease-in-out;
+	/* Transition for both hiding and showing */
 }
 
+.header-hiding {
+	top: -20%;
+	/* Adjust based on the height of your header */
+}
 
+.header-hidden {
+	top: -20%;
+}
 
 .footer {
 	background-color: #141414;
@@ -153,6 +165,15 @@ canvas {
 	min-height: 75%;
 	top: 8%;
 	padding: 3em;
+	transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.vanish-move-down {
+	opacity: 0;
+	transform: translateY(20px);
+	/* Adjust as needed for the "slightly move down" effect */
 }
 
 .nav-link {
@@ -219,13 +240,13 @@ canvas {
 	transition: background 0.2s ease-out;
 	white-space: nowrap;
 	margin: 36px;
-  }
-  
-  .title span {
+}
+
+.title span {
 	position: relative;
-  }
-  
-  .title span:before {
+}
+
+.title span:before {
 	content: "";
 	position: absolute;
 	left: 0;
@@ -234,31 +255,35 @@ canvas {
 	background: #262626;
 	bottom: 3.23em;
 	transition: all 0.2s ease-out;
-  }
-  
-  .title :hover {
-	
-	background-position: 0 11px;
-  }
-  
-  .title span:hover:before {
-	transform: translateY(10px)
-  }
+}
 
-  .shiny-link {
+.title :hover {
+
+	background-position: 0 11px;
+}
+
+.title span:hover:before {
+	transform: translateY(10px)
+}
+
+.shiny-link {
 	color: #FF3805;
-	text-decoration: none; /* Quitamos el subrayado predeterminado */
+	text-decoration: none;
+	/* Quitamos el subrayado predeterminado */
 	background-image: linear-gradient(to right, #FF3805 50%, transparent 50%);
 	background-repeat: no-repeat;
-	background-size: 100% 2px; /* Ajusta el ancho y el alto del subrayado */
+	background-size: 100% 2px;
+	/* Ajusta el ancho y el alto del subrayado */
 	background-position: 0 100%;
-	transition: background-size 0.3s ease; /* Transición suave */
-  }
-  
-  .shiny-link:hover {
-	background-size: 200% 2px; /* Aumenta el tamaño del fondo para mostrar el subrayado completo */
-  }
-  
+	transition: background-size 0.3s ease;
+	/* Transición suave */
+}
+
+.shiny-link:hover {
+	background-size: 200% 2px;
+	/* Aumenta el tamaño del fondo para mostrar el subrayado completo */
+}
+
 
 /* title component */
 .title-container {
@@ -269,7 +294,7 @@ canvas {
 	margin: 10vh auto;
 	font-size: 4.5em;
 	font-family: Playfair Display, serif;
-	
+
 
 }
 
@@ -282,10 +307,11 @@ canvas {
 	top: 0;
 	left: 0;
 }
+
 .title-container h1 {
 	height: 100%;
 	font-weight: 400;
-	
+
 	margin: auto auto auto 5%;
 	margin-top: 0;
 	display: flex;
@@ -301,8 +327,8 @@ canvas {
 	margin-left: 10%;
 }
 
-.u-splitted-lines-3> * {
-    margin-left: 0.3em;
+.u-splitted-lines-3>* {
+	margin-left: 0.3em;
 }
 
 .u-splitted-lines-2 {
@@ -321,7 +347,7 @@ canvas {
 	top: 0;
 	left: 0;
 	z-index: 4;
-	color:#606060;
+	color: #606060;
 	font-size: 0.3em;
 	font-family: "Noto Serif Display", serif;
 }

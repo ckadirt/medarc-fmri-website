@@ -410,8 +410,45 @@ function reductePointsBackground() {
 
 
 
+
+
+
+
+
+
+
 const rootElement = document.getElementById("react-root");
 
+
+// for the header to hidden and show on scroll
+let lastScrollTop = 0;
+let hideTimeout, showTimeout;
+
+rootElement.addEventListener("scroll", function() {
+  var header = document.querySelector('.header');
+  var currentScroll = rootElement.scrollTop;
+
+  if (currentScroll > lastScrollTop) {
+    // Scrolling down
+    clearTimeout(hideTimeout);
+    clearTimeout(showTimeout);
+    header.classList.add('header-hiding');
+    hideTimeout = setTimeout(() => {
+      header.classList.add('header-hidden');
+    }, 300); // Starts hiding for 0.3 seconds
+
+    showTimeout = setTimeout(() => {
+      header.classList.remove('header-hiding');
+      header.classList.remove('header-hidden');
+    }, 800); // Delay before starting the reappearance
+  } else {
+    // Scrolling up
+    clearTimeout(hideTimeout);
+    header.classList.remove('header-hiding');
+    header.classList.remove('header-hidden');
+  }
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+}, false);
 
 const root = createRoot(rootElement);
 
