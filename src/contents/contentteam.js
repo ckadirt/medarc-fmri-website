@@ -108,6 +108,12 @@ const ContentTeam = () => {
 
 const teamMembersData = [
     {
+        name: "Paul Scotti",
+        role: "Principal Investigator",
+        website: "http://www.paulscotti.com",
+        picture: "team-pictures/paul.png"
+    },
+    {
         name: "Tanishq Abraham",
         role: "MedARC CEO",
         website: "https://medarc.ai/",
@@ -120,16 +126,10 @@ const teamMembersData = [
         picture: "team-pictures/mihir.png"
     },
     {
-        name: "Paul Scotti",
-        role: "Principal Investigator",
-        website: "http://www.paulscotti.com",
-        picture: "team-pictures/paul.png"
-    },
-    {
-        name: "Paul Scotti",
-        role: "Principal Investigator",
-        website: "http://www.paulscotti.com",
-        picture: "team-pictures/paul.png"
+        name: "Cesar Torrico",
+        role: "Core team member",
+        website: "http://www.ckadirt.com/",
+        picture: "team-pictures/cesar.png"
     }
 ];
 

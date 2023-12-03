@@ -91,16 +91,58 @@ canvas {
 	background-color: #141414;
 	/* Dark blue color */
 	color: white;
-	padding: 20px 0;
+	
+	
+	
+
+}
+
+.footer-column-title {
+	font-family: 'Fira Code', monospace;
+	font-size: 1.5em;
+	font-weight: 400;
+	color: #f9f9f9;
+	padding: 5em 10em 1em 10em;
+}
+
+.footer-column-wrapper {
+	font-family: Code, monospace;
+	padding: 0em 20em 10em 20em;
+	flex-direction: row;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: start;
+
+}
+
+.fot-footer {
+	background-color: #000000;
+	/* Dark blue color */
+	color: white;
+	padding: 1em;
 	text-align: center;
-	height: 30%; 
+	font-size: 1em;
+}
+
+.footer-column {
+	
+	width: 33%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: start;
+}
+
+.footer-column a {
+	color: #999 !important;
 }
 
 .footer a {
 	color: white;
 	margin: 0 10px;
 	text-decoration: none;
-	font-size: 16px;
+	font-size: 1.2em;
 }
 
 .footer a:hover {
@@ -605,5 +647,186 @@ canvas {
   
   .circle:hover .fa-arrow-right {
 	animation: spin 0.3s linear ;
+  }
+  
+
+/* circle animation */
+
+/* CircleAnimation203.css */
+.circle-container-203 {
+	position: relative;
+	width: 200px; /* Adjust as needed for overall container size */
+	height: 200px; /* Adjust as needed for overall container size */
+	margin: 40px; /* Provide some space around the container */
+  }
+  
+  .circle-203 {
+	position: absolute;
+	border: 1px solid #FF3805;
+	border-radius: 50%;
+	transition: transform 0.5s ease, border-color 0.5s ease;
+  }
+  
+  .circle-203.large {
+	width: 150px;
+	height: 150px;
+	left: 25px;
+	top: 25px;
+	transition-delay: 0.1s; /* Larger circle expands later */
+	opacity: 0.4;
+  }
+  
+  .circle-203.medium {
+	width: 100px;
+	height: 100px;
+	left: 50px;
+	top: 50px;
+	transition-delay: 0.05s; /* Medium circle expands a bit later */
+	opacity: 0.7;
+  }
+  
+  .circle-203.small {
+	width: 50px;
+	height: 50px;
+	left: 75px;
+	top: 75px;
+	transition-delay: 0s; /* Smaller circle expands first */
+	opacity: 1;
+  }
+  
+  .circle-container-203.hover-203 .circle-203 {
+	transform: scale(1.2);
+	border-color: #6800F8;
+  }
+  
+/* news column */
+/* styles.css */
+
+.news-container {
+	font-family: 'Coromorant Garamond', serif;
+	color: #333;
+	width: 75%;
+	margin: auto;
+  }
+  
+  .news-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+	padding: 3em 2em 3em 1em;
+	text-decoration: none;
+	transition: all 0.3s ease;
+  }
+  
+  .news-item:hover {
+	background-color: #f9f9f9; /* subtle hover effect for the background */
+  }
+  
+  .news-item:hover .news-link {
+	transform: translateX(5px);
+	color: #ff8c00;
+	text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .news-date-title {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	overflow: hidden; /* Ensures content fits within the container */
+  }
+  
+  .news-date {
+	font-size: 1.5em;
+	color: #999;
+	margin-right: 15px;
+	white-space: nowrap;
+	min-width: 20%;
+  }
+  
+  .news-title {
+	font-size: max(4vh);
+	font-weight: bold;
+	color: #333;
+	margin-right: 10px;
+	flex-grow: 1; /* Allows title to expand */
+	font-weight:300;
+  }
+  
+  .news-link {
+	color: #141414; /* Starting color for the arrow */
+	margin-left: auto; /* Pushes the arrow to the right */
+	font-size: 2rem;
+	transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Clearfix for the floated elements, if any */
+  .clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+  }
+  
+  /* lab meeting */
+
+  .lab-meetings {
+	font-family: 'Coromorant Garamond', serif;
+	margin: 20px;
+	color:#606060;
+	
+  }
+  
+  .lab-meetings h1 {
+	font-size: 4em;
+	font-weight: 300;
+	font-family: "Noto Serif Display", serif;
+	color:#141414;
+  }
+
+  .lab-meetings p {
+    font-size: 1.1em;
+    color: #606060;
+    transition: color 0.3s ease-in-out; /* Add this line */
+}
+
+.lab-meetings p:hover {
+    color: #ccc;
+}
+
+
+  .meetings-content {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+  }
+  
+  .left-block, .right-block {
+	width: 48%; /* Adjust the width as per your layout */
+  }
+  
+  .left-block h2, .right-block h2 {
+	font-size: 1.5em;
+	font-weight:300;
+	color:#606060;
+  }
+  
+  .left-block span, .right-block span {
+	font-style: italic;
+  }
+  
+  .lab-meetings span {
+	font-size: 1.3em;
+  }
+  
+  .lab-meetings a {
+	
+  }
+  
+  .lab-meetings a:hover {
+	
+  }
+
+  .background-with-gradient {
+	background: linear-gradient(90deg, #ffffff 0%,  #ffffff 50%, #edecec 100%);
   }
   

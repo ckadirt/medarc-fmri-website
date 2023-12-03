@@ -4,17 +4,21 @@ import { showUp, showDown } from './utils-animation';
 import { ContentHome } from './contents/contenthome';
 import { ContentJoinUs } from './contents/contentjoinus';
 import { ContentTeam } from './contents/contentteam';
+import { ContentNews } from './contents/contentnews';
+import { ContentLinks } from './contents/contentlinks';
 
 const Footer = () => {
     return (<footer className="footer">
-        <div>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#publications">Publications</a>
-            <a href="#blog">Blog</a>
-        </div>
-        <div className="social-icons">
+        <div className='footer-column-title'>
+            MedARC
+            </div>
+        <div className='footer-column-wrapper'>
+            <div className='footer-column'>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+
+            </div>
+            {/* <div className="social-icons">
             <a href="https://twitter.com/MedARc_ai">
                 <i className="fab fa-x-twitter"></i>
             </a>
@@ -24,8 +28,14 @@ const Footer = () => {
             <a href="https://www.youtube.com/@MedARC/">
                 <i className="fab fa-youtube"></i>
             </a>
+        </div> */}
+            <div className='footer-column'>
+            <a href="#projects">Projects</a>
+                <a href="#publications">Publications</a>
+                <a href="#blog">Blog</a>
+            </div>
         </div>
-        <div>
+        <div className='fot-footer'>
             <a href="#privacy">Privacy Policy</a>
             <a href="#terms">Terms of Service</a>
         </div>
@@ -43,6 +53,7 @@ const HeaderComputer = ({ setCurrentContent }) => {
             maxHeight: "150px",
             minHeight: "70px",
             padding: "1em",
+            boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
 
         }}>
             <div className="logo"
@@ -87,7 +98,7 @@ const HeaderComputer = ({ setCurrentContent }) => {
                     <li><a className="nav-list-desk" href="#team" onClick={() => setCurrentContent("team")}>Team</a></li>
                     <li><a className="nav-list-desk" href="#news" onClick={() => setCurrentContent("news")}>News</a></li>
                     <li><a className="nav-list-desk" href="#links" onClick={() => setCurrentContent("links")}>Links</a></li>
-                    <li><a className="nav-list-desk" href="#archive" onClick={() => setCurrentContent("archive")}>Archive</a></li>
+                    {/* <li><a className="nav-list-desk" href="#archive" onClick={() => setCurrentContent("archive")}>Archive</a></li> */}
                 </ul>
             </nav>
             <div className="social-icons"
@@ -142,6 +153,7 @@ const HeaderMobile = () => {
             alignItems: "center",
             padding: "1em",
             position: 'relative', // Allows the menu to position absolutely relative to the header
+            boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
         }}>
             <div className="logo" style={{ height: "100%" }}>
                 <a href="#home" style={{ textDecoration: "none", color: "white" }}>
@@ -164,7 +176,7 @@ const HeaderMobile = () => {
                         <li style={{ margin: "20px 0" }}><a className="nav-link" href="#joinus">Join Us</a></li>
                         <li style={{ margin: "20px 0" }}><a className="nav-link" href="#news">News</a></li>
                         <li style={{ margin: "20px 0" }}><a className="nav-link" href="#links">Links</a></li>
-                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#archive">Archive</a></li>
+                        {/* <li style={{ margin: "20px 0" }}><a className="nav-link" href="#archive">Archive</a></li> */}
                     </ul>
                 </nav>
 
@@ -225,16 +237,18 @@ const Content = (props) => {
 
     return (
         <>
-            {prevContent === "home" && <> 
-            <ContentHome />                 
-            <BlockController
-                currentBlock={props.currentBlock}
-                setCurrentBlock={props.setCurrentBlock}
-            />
-            <CanvasAnimator currentBlock={props.currentBlock} />
+            {prevContent === "home" && <>
+                <ContentHome />
+                <BlockController
+                    currentBlock={props.currentBlock}
+                    setCurrentBlock={props.setCurrentBlock}
+                />
+                <CanvasAnimator currentBlock={props.currentBlock} />
             </>}
             {prevContent === "joinus" && <ContentJoinUs />}
             {prevContent === "team" && <ContentTeam />}
+            {prevContent === "news" && <ContentNews />}
+            {prevContent === "links" && <ContentLinks />}
         </>
     );
 };
@@ -295,7 +309,7 @@ const CanvasAnimator = (props) => {
         console.log(props)
         console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
         if (true) {
-            
+
             if (props.currentBlock === 1) {
                 setPointsBackground(3);
                 animateCanvas('right', '100vh');
@@ -323,7 +337,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "team",
+            currentContent: "links",
             currentBlock: 0,
         };
 
@@ -373,7 +387,7 @@ class WebPage extends React.Component {
                     currentBlock={this.state.currentBlock}
                 />
                 <Footer />
-                
+
             </>
 
         )
