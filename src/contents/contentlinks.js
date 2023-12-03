@@ -192,8 +192,7 @@ const ResourcesArchive = () => {
 const ContentLinks = () => {
     useEffect(() => {
         setPointsBackground(0);
-        animateCanvas('right', '100vw');
-        animateCanvas('up', '100vh');
+        animateCanvas('left', '250vh');
 
     }
     );

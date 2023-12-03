@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { setPointsBackground, animateCanvas } from '../utils-canvas';
 const CircleAnimation203 = ({ hoverElementId }) => {
     const [hover, setHover] = useState(false);
 
@@ -63,7 +63,11 @@ const NewsItem = ({ date, title, link }) => (
 
 const ContentNews = () => {
     useEffect(() => {
+        setPointsBackground(0);
+        animateCanvas('left', '50vh');
+        animateCanvas('up', '10vh')
         const element = document.getElementById('news');
+
 
         if (element) {
             const handleMouseEnter = () => setHover(true);
@@ -79,7 +83,7 @@ const ContentNews = () => {
         }
     }
     );
-    
+
     return (
         <div className="content-news content"
         style={{

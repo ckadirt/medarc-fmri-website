@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageEffectComponent from '../image-utils';
+import { setPointsBackground, animateCanvas } from '../utils-canvas';
 
 const ButtonWithHover = ({ link }) => {
     const handleClick = () => {
@@ -57,6 +58,13 @@ const TeamMembers = ({ teamMembers, gridSize }) => {
 
 
 const ContentTeam = () => {
+
+    useEffect(() => {
+        setPointsBackground();
+        animateCanvas('left', '250vh');
+    }
+    );
+        
     return (
         <div
             className="team-content-container content"

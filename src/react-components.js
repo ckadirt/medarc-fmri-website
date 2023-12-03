@@ -11,7 +11,7 @@ const Footer = () => {
     return (<footer className="footer">
         <div className='footer-column-title'>
             MedARC
-            </div>
+        </div>
         <div className='footer-column-wrapper'>
             <div className='footer-column'>
                 <a href="#home">Home</a>
@@ -30,7 +30,7 @@ const Footer = () => {
             </a>
         </div> */}
             <div className='footer-column'>
-            <a href="#projects">Projects</a>
+                <a href="#projects">Projects</a>
                 <a href="#publications">Publications</a>
                 <a href="#blog">Blog</a>
             </div>
@@ -242,10 +242,27 @@ const Content = (props) => {
                 <BlockController
                     currentBlock={props.currentBlock}
                     setCurrentBlock={props.setCurrentBlock}
+                    positions={[0, 50, 140, 200]}
                 />
-                <CanvasAnimator currentBlock={props.currentBlock} />
+                <CanvasAnimator
+                    currentBlock={props.currentBlock}
+                    type="home"
+                />
             </>}
-            {prevContent === "joinus" && <ContentJoinUs />}
+            {prevContent === "joinus" && <>
+                <ContentJoinUs />
+                <BlockController
+                    currentBlock={props.currentBlock}
+                    setCurrentBlock={props.setCurrentBlock}
+                    positions={[0, 30, 80, 120, 150]}
+                />
+                <CanvasAnimator 
+                currentBlock={props.currentBlock}
+                type = "joinus"
+                />
+            </>
+
+            }
             {prevContent === "team" && <ContentTeam />}
             {prevContent === "news" && <ContentNews />}
             {prevContent === "links" && <ContentLinks />}
@@ -256,7 +273,7 @@ const Content = (props) => {
 
 
 function BlockController(props) {
-    const positionsVH = [0, 50, 140, 200]; // Array of positions in vh
+    const positionsVH = props.positions;
 
     useEffect(() => {
         const handleScroll = (event) => {
@@ -300,34 +317,83 @@ function BlockController(props) {
 }
 
 const CanvasAnimator = (props) => {
-    let prevBlock = 0;
+    if (props.type === "home") {
+        let prevBlock = 0;
 
-    const updatePrevBlock = (newBlock) => {
-        prevBlock = newBlock;
-    }
-    useEffect(() => {
-        console.log(props)
-        console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
-        if (true) {
-
-            if (props.currentBlock === 1) {
-                setPointsBackground(3);
-                animateCanvas('right', '100vh');
-                animateCanvas('up', '30vh');
-            }
-            if (props.currentBlock === 0) {
-                animateCanvas('right', '0vh');
-                animateCanvas('up', '0vh');
-                setPointsBackground(40);
-            }
+        const updatePrevBlock = (newBlock) => {
+            prevBlock = newBlock;
         }
-    }, [props.currentBlock]);
+        useEffect(() => {
+            console.log(props)
+            console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
+            if (true) {
 
-    return (
-        <>
-            {/* Your JSX markup here */}
-        </>
-    );
+                if (props.currentBlock === 1) {
+                    setPointsBackground(3);
+                    animateCanvas('right', '100vh');
+                    animateCanvas('up', '30vh');
+                }
+                if (props.currentBlock === 0) {
+                    animateCanvas('right', '0vh');
+                    animateCanvas('up', '0vh');
+                    setPointsBackground(40);
+                }
+
+ 
+            }
+        }, [props.currentBlock]);
+
+        return (
+            <>
+                {/* Your JSX markup here */}
+            </>
+        );
+    }
+
+    if (props.type === "joinus") {
+        let prevBlock = 0;
+
+        const updatePrevBlock = (newBlock) => {
+            prevBlock = newBlock;
+        }
+        useEffect(() => {
+            console.log(props)
+            console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
+            if (true) {
+                if (props.currentBlock === 0) {
+                    animateCanvas('right', '0vh');
+                    animateCanvas('up', '10vh');
+                    
+                }
+
+                if (props.currentBlock === 1) {
+                    setPointsBackground(3);
+                    animateCanvas('left', '90vh');
+                    animateCanvas('down', '10vh');
+                    
+                }
+
+                if (props.currentBlock === 2) {
+                    animateCanvas('left', '180vh');
+                    //animateCanvas('down', '40vh');
+                    
+                }
+                // if (props.currentBlock === 3) {
+                //     animateCanvas('right', '0vh');
+                //     animateCanvas('up', '20vh');
+                    
+                // }
+                
+            }
+        }, [props.currentBlock]);
+
+        return (
+            <>
+                {/* Your JSX markup here */}
+            </>
+        );
+    }
+
 }
 
 
@@ -337,7 +403,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "links",
+            currentContent: "team",
             currentBlock: 0,
         };
 

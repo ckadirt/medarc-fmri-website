@@ -1,4 +1,21 @@
 export function setPointsBackground(numberOfPoints) {
+
+  // select this element
+  // #tsparticles canvas {
+  //   z-index: -10 !important;
+  //   transition: all 0.5s ease-in-out;
+  // }
+  let element = null;
+  try {
+    element = document.getElementById('tsparticles');
+    element.style.opacity = 0;
+  } catch (error) {
+    console.error('Element with ID "tsparticles" not found.');
+    console.error(error);
+    return;
+  }
+
+  setTimeout(() => {
     (async () => {
       tsParticles.load("tsparticles", {
         fps_limit: 60,
@@ -79,7 +96,15 @@ export function setPointsBackground(numberOfPoints) {
       renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 18 / 9));
   
     })();
+    element.style.opacity = 1;
+  }, 500);
+
+    
+
+
   }
+
+
   export function animateCanvas(direction, distance) {
     var canvas = document.getElementById('canvas');
     if (canvas) {
