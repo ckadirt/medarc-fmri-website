@@ -403,7 +403,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "team",
+            currentContent: "home",
             currentBlock: 0,
         };
 
