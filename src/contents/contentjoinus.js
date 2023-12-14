@@ -9,6 +9,7 @@ const JoinOurDiscord = () => {
                 height: "80vh",
                 width: "60%",
             }}
+            className="container-block-joinus first-joinus-block"
         >
 
             <div className="home"
@@ -18,7 +19,7 @@ const JoinOurDiscord = () => {
                     alignItems: "center",
                     justifyContent: "center",
                 }}>
-                <div className='glassmorph' style={{
+                <div className='glassmorph joinus-block' style={{
                     width: "100%",
                     minHeight: "30%",
                     height: "auto",
@@ -55,6 +56,7 @@ const Collaborations = () => {
                 height: "60vh",
                 width: "60%",
             }}
+            className="container-block-joinus"
         >
 
             <div className="home"
@@ -64,7 +66,7 @@ const Collaborations = () => {
                     alignItems: "center",
                     justifyContent: "center",
                 }}>
-                <div className='glassmorph' style={{
+                <div className='glassmorph joinus-block' style={{
                     width: "100%",
                     minHeight: "30%",
                     height: "auto",
@@ -102,6 +104,7 @@ const Interships = () => {
                 height: "60vh",
                 width: "60%",
             }}
+            className="container-block-joinus"
         >
 
             <div className="home"
@@ -111,7 +114,7 @@ const Interships = () => {
                     alignItems: "center",
                     justifyContent: "center",
                 }}>
-                <div className='glassmorph' style={{
+                <div className='glassmorph joinus-block' style={{
                     width: "100%",
                     minHeight: "30%",
                     height: "auto",

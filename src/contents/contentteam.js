@@ -23,14 +23,14 @@ const ButtonWithHover = ({ link }) => {
 };
 
 
-const TeamMembers = ({ teamMembers, gridSize }) => {
+const TeamMembers = ({ teamMembers, gridSize, isMobile }) => {
     const gridClass = `team-grid grid-${gridSize}`;
 
     return (
         <div className={gridClass}>
             {teamMembers.map((member, index) => (
                 <div key={index} className="team-member glassback">
-                    <ImageEffectComponent imagePath={member.picture} />
+                    <ImageEffectComponent imagePath={member.picture} isMobile={isMobile}/>
                     <h2>{member.name}</h2>
                     <div className="line"
                         style={{
@@ -57,57 +57,59 @@ const TeamMembers = ({ teamMembers, gridSize }) => {
 };
 
 
-const ContentTeam = () => {
+const ContentTeam = ({isMobile}) => {
 
     useEffect(() => {
         setPointsBackground();
         animateCanvas('left', '250vh');
     }
     );
-        
+
+    const gridSize = isMobile ? 2 : 3;
+
     return (
         <div
             className="team-content-container content"
         >
+            <div className='team-container'>
+                <div >
+                    <div className="purple-title"
+                        style={{
+                            fontFamily: "Cormorant Garamond",
+                            alignSelf: "start",
+                            margin: "2em 0 1em 0",
+                            fontSize: "2.5em",
+                            color: "#141414",
+                            borderBottom: "1px solid #141414",
+                            paddingBottom: "0.5em",
+                        }
+                        }
+                    >
+                        Team
+                    </div>
 
-            <div >
-                <div className="purple-title"
-                    style={{
-                        fontFamily: "Cormorant Garamond",
-                        alignSelf: "start",
-                        margin: "2em 0 1em 0",
-                        fontSize: "2.5em",
-                        color: "#141414",
-                        borderBottom: "1px solid #141414",
-                        paddingBottom: "0.5em",
-                    }
-                    }
-                >
-                    Team
+                    <TeamMembers teamMembers={teamMembersData} gridSize={gridSize} isMobile={isMobile} />
                 </div>
 
-                <TeamMembers teamMembers={teamMembersData} gridSize={3} />
-            </div>
+                <div >
+                    <div className="purple-title"
+                        style={{
+                            fontFamily: "Cormorant Garamond",
+                            alignSelf: "start",
+                            margin: "2em 0 1em 0",
+                            fontSize: "2.5em",
+                            color: "#141414",
+                            borderBottom: "1px solid #141414",
+                            paddingBottom: "0.5em",
+                        }
+                        }
+                    >
+                        Collaborators
+                    </div>
 
-            <div >
-                <div className="purple-title"
-                    style={{
-                        fontFamily: "Cormorant Garamond",
-                        alignSelf: "start",
-                        margin: "2em 0 1em 0",
-                        fontSize: "2.5em",
-                        color: "#141414",
-                        borderBottom: "1px solid #141414",
-                        paddingBottom: "0.5em",
-                    }
-                    }
-                >
-                    Collaborators
+                    <TeamMembers teamMembers={collaboratorsData} gridSize={gridSize} isMobile={isMobile}/>
                 </div>
-
-                <TeamMembers teamMembers={collaboratorsData} gridSize={3} />
             </div>
-
         </div>
     );
 };

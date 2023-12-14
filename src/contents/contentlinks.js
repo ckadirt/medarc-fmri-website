@@ -4,7 +4,7 @@ import { setPointsBackground, animateCanvas } from '../utils-canvas';
 
 const LabMeetings = () => {
     return (
-        <div className="lab-meetings background-with-gradient"
+        <div className="lab-meetings background-with-gradient first-links-block"
             id="lab-meetings"
             style={{
                 marginLeft: 0,
@@ -24,7 +24,7 @@ const LabMeetings = () => {
             >
                 <CircleAnimation203 hoverElementId="lab-meetings" />
                 <div>
-                    <h1>Lab Meetings</h1>
+                    <h1 className='title-links'>Lab Meetings</h1>
                     <div className="meetings-content">
                         <div className="left-block">
                             <h2>Trends in NeuroAI: Journal club / Research talks </h2>
@@ -112,8 +112,10 @@ const ResourcesArchive = () => {
                                     {
                                         paddingLeft: "2em",
                                     }
-                                }>
-                                    <h1>Resources</h1>
+                                }
+                                className = "block-padding-modifier"
+                                >
+                                    <h1 className='title-links' >Resources</h1>
                                     <div className="meetings-content">
                                         <div className="left-block"
                                             style={{
@@ -156,8 +158,9 @@ const ResourcesArchive = () => {
                                             paddingLeft: "2em",
                                         }
                                     }
+                                    className = "block-padding-modifier"
                                 >
-                                    <h1>Archive</h1>
+                                    <h1 className='title-links' >Archive</h1>
                                     <div className="meetings-content">
                                         <div className="left-block"
                                             style={{

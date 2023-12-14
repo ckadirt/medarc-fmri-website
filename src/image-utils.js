@@ -1,15 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 
 
-const ImageEffectComponent = ({ imagePath }) => {
+const ImageEffectComponent = ({ imagePath, isMobile }) => {
   const portraitRef = useRef(null);
-
+  const distanceMovementX = isMobile ? "5px" : "15px";
+  const distanceMovementY = isMobile ? "3px" : "10px"
   useEffect(() => {
     const mouseMonitor = (e) => {
       let x = e.clientX / window.innerWidth;
       let y = e.clientY / window.innerHeight;
-      let moveX = x > 0.5 ? '-15px' : '15px';
-      let moveY = y > 0.5 ? '-10px' : '10px';
+      let moveX = x > 0.5 ? '-' + distanceMovementX : distanceMovementX;
+      let moveY = y > 0.5 ? '-' + distanceMovementY : distanceMovementY;
       portraitRef.current.style.setProperty("--translate-x", moveX);
       portraitRef.current.style.setProperty("--translate-y", moveY);
     };

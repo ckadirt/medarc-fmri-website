@@ -14,8 +14,8 @@ const Footer = () => {
         </div>
         <div className='footer-column-wrapper'>
             <div className='footer-column'>
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
+                <a href="https://www.medarc.ai/home" target='_blank'>Home</a>
+                <a href="https://www.medarc.ai/about" target='_blank'>About</a>
 
             </div>
             {/* <div className="social-icons">
@@ -30,14 +30,14 @@ const Footer = () => {
             </a>
         </div> */}
             <div className='footer-column'>
-                <a href="#projects">Projects</a>
-                <a href="#publications">Publications</a>
-                <a href="#blog">Blog</a>
+                <a href="https://www.medarc.ai/projects" target='_blank'>Projects</a>
+                <a href="https://www.medarc.ai/publications" target='_blank'>Publications</a>
+                <a href="https://www.medarc.ai/blog" target='_blank'>Blog</a>
             </div>
         </div>
         <div className='fot-footer'>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
+            <a href="https://stability.ai/privacy-policy" target='_blank'>Privacy Policy</a>
+            <a href="https://stability.ai/terms-of-use" target='_blank'>Terms of Service</a>
         </div>
     </footer>
     );
@@ -126,7 +126,7 @@ const HeaderComputer = ({ setCurrentContent }) => {
 }
 
 
-const HeaderMobile = () => {
+const HeaderMobile = ({ setCurrentContent }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menuStyles = {
@@ -145,6 +145,11 @@ const HeaderMobile = () => {
 
     };
 
+    const handleLinkClick = (page) => {
+        setIsMenuOpen(false);
+        setCurrentContent(page);
+    }
+
     return (
         <header className="header" style={{
             color: "white",
@@ -152,15 +157,21 @@ const HeaderMobile = () => {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "1em",
-            position: 'relative', // Allows the menu to position absolutely relative to the header
+            position: 'fixed', // Allows the menu to position absolutely relative to the header
             boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
+            height: '8%'
         }}>
-            <div className="logo" style={{ height: "100%" }}>
+            <div className="logo" style={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
                 <a href="#home" style={{ textDecoration: "none", color: "white" }}>
                     <img src="logo_new_black.png" alt="MedARc Logo" style={{ height: "50px" }} />
                 </a>
             </div>
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ fontSize: "1.5em", background: "none", border: "none", color: "white" }}>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ fontSize: "1.5em", background: "none", border: "none", color: "black", paddingRight: "1.5em" }}>
                 {/* Replace with a menu icon */}
                 ☰
             </button>
@@ -171,11 +182,11 @@ const HeaderMobile = () => {
                         style={{
                             listStyle: "none", textAlign: "center", padding: 0, margin: 0, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center",
                         }}>
-                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#home">Home</a></li>
-                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#team">Team</a></li>
-                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#joinus">Join Us</a></li>
-                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#news">News</a></li>
-                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#links">Links</a></li>
+                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#home" onClick={() => handleLinkClick("home")}>Home</a></li>
+                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#team" onClick={() => handleLinkClick("team")}>Team</a></li>
+                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#joinus" onClick={() => handleLinkClick("joinus")}>Join Us</a></li>
+                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#news" onClick={() => handleLinkClick("news")}>News</a></li>
+                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#links" onClick={() => handleLinkClick("links")}>Links</a></li>
                         {/* <li style={{ margin: "20px 0" }}><a className="nav-link" href="#archive">Archive</a></li> */}
                     </ul>
                 </nav>
@@ -256,14 +267,14 @@ const Content = (props) => {
                     setCurrentBlock={props.setCurrentBlock}
                     positions={[0, 30, 80, 120, 150]}
                 />
-                <CanvasAnimator 
-                currentBlock={props.currentBlock}
-                type = "joinus"
+                <CanvasAnimator
+                    currentBlock={props.currentBlock}
+                    type="joinus"
                 />
             </>
 
             }
-            {prevContent === "team" && <ContentTeam />}
+            {prevContent === "team" && <ContentTeam isMobile={props.isMobile} />}
             {prevContent === "news" && <ContentNews />}
             {prevContent === "links" && <ContentLinks />}
         </>
@@ -339,7 +350,7 @@ const CanvasAnimator = (props) => {
                     setPointsBackground(40);
                 }
 
- 
+
             }
         }, [props.currentBlock]);
 
@@ -363,27 +374,27 @@ const CanvasAnimator = (props) => {
                 if (props.currentBlock === 0) {
                     animateCanvas('right', '0vh');
                     animateCanvas('up', '10vh');
-                    
+
                 }
 
                 if (props.currentBlock === 1) {
                     setPointsBackground(3);
                     animateCanvas('left', '90vh');
                     animateCanvas('down', '10vh');
-                    
+
                 }
 
                 if (props.currentBlock === 2) {
                     animateCanvas('left', '180vh');
                     //animateCanvas('down', '40vh');
-                    
+
                 }
                 // if (props.currentBlock === 3) {
                 //     animateCanvas('right', '0vh');
                 //     animateCanvas('up', '20vh');
-                    
+
                 // }
-                
+
             }
         }, [props.currentBlock]);
 
@@ -403,7 +414,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "home",
+            currentContent: "links",
             currentBlock: 0,
         };
 
@@ -443,7 +454,9 @@ class WebPage extends React.Component {
         return (
             <>
                 {this.state.isMobile ?
-                    <HeaderMobile /> :
+                    <HeaderMobile
+                        setCurrentContent={this.setCurrentContent}
+                    /> :
                     <HeaderComputer
                         setCurrentContent={this.setCurrentContent}
                     />}
@@ -451,6 +464,7 @@ class WebPage extends React.Component {
                     currentContent={this.state.currentContent}
                     setCurrentBlock={this.setCurrentBlock}
                     currentBlock={this.state.currentBlock}
+                    isMobile={this.state.isMobile}
                 />
                 <Footer />
 

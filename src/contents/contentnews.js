@@ -55,7 +55,7 @@ const NewsItem = ({ date, title, link }) => (
 
   const newsData = [
     {date: 'Sept 21st 2023', title: 'MindEye paper accepted as spotlight to NeurIPS 2023!', link: 'https://nips.cc/virtual/2023/poster/70292'},
-    {date: 'July 12th 2023', title: '[US Senate hearing on AI and Intellectual Property](https://www.judiciary.senate.gov/imo/media/doc/2023-07-12_pm_-_testimony_-_brooks.pdf) discusses our work as example AI medical application', link: 'https://www.judiciary.senate.gov/imo/media/doc/2023-07-12_pm_-_testimony_-_brooks.pdf'},
+    {date: 'July 12th 2023', title: 'US Senate hearing on AI and Intellectual Property discusses our work as example AI medical application', link: 'https://www.judiciary.senate.gov/imo/media/doc/2023-07-12_pm_-_testimony_-_brooks.pdf'},
     {date: 'July 6th 2023', title: 'Stability AI blog post on MindEye', link: 'https://stability.ai/research/minds-eye'},
     {date: 'May 29th 2023', title: 'MindEye preprint released!', link: 'https://medarc-ai.github.io/mindeye'}
   ];
