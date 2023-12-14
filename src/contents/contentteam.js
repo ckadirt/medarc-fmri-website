@@ -22,15 +22,43 @@ const ButtonWithHover = ({ link }) => {
     );
 };
 
+const TeamNoPicture = () => (
+    <div className="team-member full-width-element glassback">
+        <ul className="list-members">
+            <li>Ashutosh Narang</li>
+            <li>Connor Lane</li>
+            <li>Charan Santhirasegaran</li>
+            <li>Mohammed Baharoon</li>
+            <li>Jonathan Xu</li>
+            <li>Dingli Yu</li>
+            <li>Alex Nguyen</li>
+            <li>Filip Vercruysse</li>
+        </ul>
+    </div>
+);
 
-const TeamMembers = ({ teamMembers, gridSize, isMobile }) => {
+const PastTeamMembers = () => (
+    <div className="team-member full-width-element glassback">
+        <ul class="list-members">
+            <li>Atmadeep Banerjee</li>
+            <li>Jimmie Goode</li>
+            <li>Stepan Shabalin</li>
+            <li>Ethan Cohen</li>
+            <li>Aidan James Dempster</li>
+            <li>Nathalie Verlinde</li>
+            <li>David Weisberg</li>
+        </ul>
+    </div>
+);
+
+const TeamMembers = ({ teamMembers, gridSize, isMobile, TeamNoPicture }) => {
     const gridClass = `team-grid grid-${gridSize}`;
 
     return (
         <div className={gridClass}>
             {teamMembers.map((member, index) => (
                 <div key={index} className="team-member glassback">
-                    <ImageEffectComponent imagePath={member.picture} isMobile={isMobile}/>
+                    <ImageEffectComponent imagePath={member.picture} isMobile={isMobile} />
                     <h2>{member.name}</h2>
                     <div className="line"
                         style={{
@@ -52,12 +80,15 @@ const TeamMembers = ({ teamMembers, gridSize, isMobile }) => {
                     </div>
                 </div>
             ))}
+            {TeamNoPicture && <TeamNoPicture />}
+
+
         </div>
     );
 };
 
 
-const ContentTeam = ({isMobile}) => {
+const ContentTeam = ({ isMobile }) => {
 
     useEffect(() => {
         setPointsBackground();
@@ -88,7 +119,7 @@ const ContentTeam = ({isMobile}) => {
                         Team
                     </div>
 
-                    <TeamMembers teamMembers={teamMembersData} gridSize={gridSize} isMobile={isMobile} />
+                    <TeamMembers teamMembers={teamMembersData} gridSize={gridSize} isMobile={isMobile} TeamNoPicture={TeamNoPicture} />
                 </div>
 
                 <div >
@@ -107,7 +138,31 @@ const ContentTeam = ({isMobile}) => {
                         Collaborators
                     </div>
 
-                    <TeamMembers teamMembers={collaboratorsData} gridSize={gridSize} isMobile={isMobile}/>
+                    <TeamMembers teamMembers={collaboratorsData} gridSize={gridSize} isMobile={isMobile} />
+                </div>
+                <div 
+                    style={{
+                        paddingBottom: "5em",
+                    }
+                    }
+                >
+                    <div className="purple-title"
+                        style={{
+                            fontFamily: "Cormorant Garamond",
+                            alignSelf: "start",
+                            margin: "2em 0 1em 0",
+                            fontSize: "2.5em",
+                            color: "#141414",
+                            borderBottom: "1px solid #141414",
+                            paddingBottom: "0.5em",
+                        }
+                        }
+                    >
+                        Past Team Members
+                    </div>
+
+                    <PastTeamMembers />
+
                 </div>
             </div>
         </div>

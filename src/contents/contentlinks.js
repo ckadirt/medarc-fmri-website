@@ -12,11 +12,11 @@ const LabMeetings = () => {
             }}
         >
 
-            <div className="lab-meetings-wrapper"
+            <div className="lab-meetings-wrapper" id='link-cont-top'
                 style={{
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "center",
+                    justifyContent: "start",
                     alignItems: "center",
                     padding: "8em",
                 }
@@ -72,23 +72,16 @@ const LabMeetings = () => {
 
 const ResourcesArchive = () => {
     return (
-        <div className="lab-meetings "
-            id="resources-archive"
-            style={{
-                marginLeft: 0,
-                marginRight: 0,
-                padding: "0em",
-                paddingBottom: "5em",
-            }}
-        >
 
-            <div className="lab-meetings-wrapper"
+
+            <div className=" lab-meetings lab-meetings-wrapper " id = 'link-cont-sec'
                 style={{
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "start",
                     alignItems: "center",
                     padding: "5em 8em",
+                    margin: "0px"
                 }
                 }
             >
@@ -188,7 +181,6 @@ const ResourcesArchive = () => {
                 </div>
             </div>
 
-        </div>
     );
 }
 
