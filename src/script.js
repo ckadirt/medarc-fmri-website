@@ -256,7 +256,7 @@ document.addEventListener('mousemove', (event) => {
 
 console.log("Pixel Ratio: " + window.devicePixelRatio);
 
-export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0]) {
+export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0], isMobile = false) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xF2F2F2);
   const aspectRatio = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
@@ -296,6 +296,12 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
     (err) => console.error(err)
   );
 
+  let maxNumPoints = 5000;
+  
+  if (isMobile) {
+    maxNumPoints = 1000;
+    details = details * 2;
+  }
   
   const tempPosition = new THREE.Vector3();
   const materials = [
@@ -329,12 +335,13 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
       }
   }
 
+    
   function render() {
     renderer.render(scene, camera);
       group.rotation.y += 0.002;
 
       paths.forEach(path => {
-          if (path.vertices.length < 5000) {
+          if (path.vertices.length < maxNumPoints) {
               path.update();
               
           }

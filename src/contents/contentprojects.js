@@ -24,12 +24,12 @@ const ButtonWithHover = ({ link, text }) => {
 };
 
 
-const GridItem = ({ title, subtitle, description, link, buttonText, modelPath, threeDstuff }) => {
+const GridItem = ({ title, subtitle, description, link, buttonText, modelPath, threeDstuff, isMobile }) => {
     // generate a random text for the model id
     const modelId = Math.random().toString(36).substring(7);
     useEffect(() => {
         console.log('GridItem useEffect');
-        initRenderer(modelPath, modelId, threeDstuff?.details, threeDstuff?.cameraPosition);
+        initRenderer(modelPath, modelId, threeDstuff?.details, threeDstuff?.cameraPosition, isMobile);
     }, []);
 
 
@@ -54,7 +54,7 @@ const GridItem = ({ title, subtitle, description, link, buttonText, modelPath, t
     );
 };
 
-const GridComponent = ({ columns, items }) => {
+const GridComponent = ({ columns, items, isMobile }) => {
     const gridStyle = {
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
     };
@@ -62,7 +62,7 @@ const GridComponent = ({ columns, items }) => {
     return (
         <div className="grid-container" style={gridStyle}>
             {items.map((item, index) => (
-                <GridItem key={index} {...item} />
+                <GridItem key={index} {...item} isMobile={isMobile} />
             ))}
         </div>
     );
@@ -163,7 +163,7 @@ const ContentProjects = ({isMobile}) => {
             }}
 
             ></div>
-            <GridComponent columns={gridSize} items={projects} />
+            <GridComponent columns={gridSize} items={projects} isMobile={isMobile} />
         </div>
     )
 }
