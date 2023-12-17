@@ -264,7 +264,7 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Adjusted for mobile
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1)); // Adjusted for mobile
 
   try {
     document.getElementById(divId).appendChild(renderer.domElement);
