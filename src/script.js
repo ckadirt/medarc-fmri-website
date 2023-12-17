@@ -34,14 +34,14 @@ scene.background = null// new THREE.Color('white')
 /////////////////////////////////////////////////////////////////////////
 ///// RENDERER CONFIG
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) // turn on antialias
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) //set pixel ratio
+renderer.setPixelRatio(window.devicePixelRatio * 0.5) // retina display
 renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 2)) // set size
 renderer.outputEncoding = THREE.sRGBEncoding // set color encoding
 container.appendChild(renderer.domElement) // add the renderer to html div
 
 /////////////////////////////////////////////////////////////////////////
 ///// CAMERAS CONFIG
-const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 10000)
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
 //camera.position.set(34,16,20)
 scene.add(camera)
 
@@ -54,7 +54,7 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix()
 
   renderer.setSize(window.innerWidth * 1.5, Math.max(window.innerHeight * 1.5, 700 * 2))
-  renderer.setPixelRatio(2)
+  renderer.setPixelRatio(window.devicePixelRatio * 0.5)
 })
 
 /////////////////////////////////////////////////////////////////////////
@@ -246,14 +246,14 @@ document.addEventListener('mousemove', (event) => {
 
 
 
-
+console.log("Pixel Ratio: " + window.devicePixelRatio);
 
 export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0]) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
       75,
-      Math.max(window.innerWidth, 700) / Math.max(window.innerHeight, 700),
+      Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400),
       0.0001,
       1000
   );
@@ -262,7 +262,8 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
       antialias: true,
       alpha: true
   });
-  renderer.setSize(Math.max(window.innerWidth, 700), Math.max(window.innerHeight, 700));
+  renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
+  renderer.setPixelRatio(window.devicePixelRatio * 0.5)
 
   try {
     document.getElementById(divId).appendChild(renderer.domElement);
@@ -289,7 +290,7 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
       (obj) => {    
           sampler = new MeshSurfaceSampler(obj.children[0]).build();
           
-            for (let i = 0; i < 32; i++) {
+            for (let i = 0; i < 10; i++) {
                 const path = new Path(i);
                 paths.push(path);
                 group.add(path.line);
@@ -334,27 +335,33 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   }
 
   function render() {
+    renderer.render(scene, camera);
       group.rotation.y += 0.002;
 
       paths.forEach(path => {
-          if (path.vertices.length < 1500) {
+          if (path.vertices.length < 5000) {
               path.update();
+              
           }
       });
 
       controls.update();
-      renderer.render(scene, camera);
+      
+      
+      
   }
 
   window.addEventListener("resize", onWindowResize, false);
 
   function onWindowResize() {
-      camera.aspect = Math.max(window.innerWidth, 700) / Math.max(window.innerHeight, 700);
+      camera.aspect = Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400);
       camera.updateProjectionMatrix();
-      renderer.setSize(Math.max(window.innerWidth, 700), Math.max(window.innerHeight, 700));
+      renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
   }
 
-  // ... [rest of your code]
+  
+  
+
 }
 
 

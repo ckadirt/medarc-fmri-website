@@ -3,8 +3,8 @@ import React, { useRef, useEffect } from 'react';
 
 const ImageEffectComponent = ({ imagePath, isMobile }) => {
   const portraitRef = useRef(null);
-  const distanceMovementX = isMobile ? "5px" : "15px";
-  const distanceMovementY = isMobile ? "3px" : "10px"
+  const distanceMovementX = isMobile ? "10px" : "15px";
+  const distanceMovementY = isMobile ? "7px" : "10px"
   useEffect(() => {
     const mouseMonitor = (e) => {
       let x = e.clientX / window.innerWidth;

@@ -116,7 +116,11 @@ let projects = [
         "description": "The project aims to create a versatile, self-supervised AI model trained on an extensive collection of public functional Magnetic Resonance Imaging (fMRI) data. Its goal is to learn a latent space that is generalizable across various participants, tasks, and scanner types. This approach addresses the challenge of variability in fMRI data and seeks to uncover universal features of brain activity. The model's potential lies in enhancing brain research, improving diagnoses in neurology, and advancing brain-computer interface technologies, by providing more personalized and accurate interpretations of fMRI data.",
         "link": "https://github.com/MedARC-AI/fMRI-foundation-model",
         "buttonText": "Get involved",
-        "modelPath": "models/gltf/abstract.obj"
+        "modelPath": "models/gltf/abstract.obj",
+        "threeDstuff": {
+            details: 25,
+            cameraPosition: [150, 150, 0],
+        }
     },
 
     {
