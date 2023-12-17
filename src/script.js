@@ -281,11 +281,15 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   let sampler = null;
   let paths = [];
 
+  let speed = 10;
+  if (isMobile) {
+    speed = 5;
+  }
   new OBJLoader().load(
     objPath,
     (obj) => {
       sampler = new MeshSurfaceSampler(obj.children[0]).build();
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < speed; i++) {
         const path = new Path(i);
         paths.push(path);
         group.add(path.line);
