@@ -250,11 +250,11 @@ console.log("Pixel Ratio: " + window.devicePixelRatio);
 
 export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0]) {
   const scene = new THREE.Scene();
-  const aspectRatio = Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400);
+  const aspectRatio = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
   const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 1000);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
+  renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Adjusted for mobile
 
   try {
@@ -290,10 +290,10 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   
   const tempPosition = new THREE.Vector3();
   const materials = [
-      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: true, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: true, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: true, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xA73489, transparent: true, opacity: 0.5})
+      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: false, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: false, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: false, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xA73489, transparent: false, opacity: 0.5})
   ];
 
   class Path {
@@ -339,9 +339,9 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
 
 
   function onWindowResize() {
-    camera.aspect = Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400);
+    camera.aspect = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
     camera.updateProjectionMatrix();
-    renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
+    renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
   }
 
   window.addEventListener("resize", onWindowResize, false);
