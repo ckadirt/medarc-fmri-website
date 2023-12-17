@@ -34,14 +34,14 @@ scene.background = new THREE.Color(0xEDECEC)
 /////////////////////////////////////////////////////////////////////////
 ///// RENDERER CONFIG
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false }) // turn on antialias
-renderer.setPixelRatio(Math.min(window.devicePixelRatio * 0.5,0.75)) // retina display
+renderer.setPixelRatio(Math.min(window.devicePixelRatio , 1)) // retina display
 renderer.setSize(Math.max(window.innerWidth * 1.5, 500), Math.max(window.innerHeight * 1.5, 500 * 2)) // set size
 renderer.outputEncoding = THREE.sRGBEncoding // set color encoding
 container.appendChild(renderer.domElement) // add the renderer to html div
 
 /////////////////////////////////////////////////////////////////////////
 ///// CAMERAS CONFIG
-const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1000)
+const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 500)
 //camera.position.set(34,16,20)
 scene.add(camera)
 
@@ -260,11 +260,11 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xF2F2F2);
   const aspectRatio = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
-  const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 1000);
+  const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 500);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Adjusted for mobile
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Adjusted for mobile
 
   try {
     document.getElementById(divId).appendChild(renderer.domElement);
@@ -338,8 +338,9 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
     
   function render() {
     renderer.render(scene, camera);
+    if (!isMobile) {
       group.rotation.y += 0.002;
-
+    }
       paths.forEach(path => {
           if (path.vertices.length < maxNumPoints) {
               path.update();
