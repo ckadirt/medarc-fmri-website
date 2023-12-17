@@ -34,8 +34,8 @@ scene.background = new THREE.Color(0xEDECEC)
 /////////////////////////////////////////////////////////////////////////
 ///// RENDERER CONFIG
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false }) // turn on antialias
-renderer.setPixelRatio(Math.min(window.devicePixelRatio * 0.5,1)) // retina display
-renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 2)) // set size
+renderer.setPixelRatio(Math.min(window.devicePixelRatio * 0.5,0.75)) // retina display
+renderer.setSize(Math.max(window.innerWidth * 1.5, 500), Math.max(window.innerHeight * 1.5, 500 * 2)) // set size
 renderer.outputEncoding = THREE.sRGBEncoding // set color encoding
 container.appendChild(renderer.domElement) // add the renderer to html div
 
@@ -53,7 +53,7 @@ window.addEventListener('resize', () => {
   camera.aspect = width / height
   camera.updateProjectionMatrix()
 
-  renderer.setSize(window.innerWidth * 1.5, Math.max(window.innerHeight * 1.5, 700 * 2))
+  renderer.setSize(window.innerWidth * 1.5, Math.max(window.innerHeight * 1.5, 500 * 2))
   renderer.setPixelRatio(window.devicePixelRatio * 0.5)
 })
 
@@ -299,10 +299,10 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   
   const tempPosition = new THREE.Vector3();
   const materials = [
-      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: true, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: true, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: true, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xA73489, transparent: true, opacity: 0.5})
+      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: false, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: false, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: false, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xA73489, transparent: false, opacity: 0.5})
   ];
 
   class Path {
