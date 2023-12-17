@@ -93,7 +93,7 @@ export function setPointsBackground(numberOfPoints) {
         },
         retina_detect: true
       });
-      renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 18 / 9));
+      
   
     })();
     element.style.opacity = 1;

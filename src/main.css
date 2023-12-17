@@ -281,6 +281,24 @@ canvas {
 	z-index: 0;
 }
 
+
+.glassback-lite {
+	/*the alpha value controls the transparency*/
+	background: rgba(255, 255, 255, 0.3);
+
+	/* This controls the blurring effect*/
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(7.5px);
+
+	/*Adding the shadow*/
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+
+	/* Adding our borders*/
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	z-index: 0;
+}
+
 .uli-content li {
 	/* Estilos aquí */
 	padding: 0.5em;
@@ -887,6 +905,93 @@ canvas {
 .background-with-gradient {
 	background: linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #edecec 100%);
 }
+
+
+/* projects */
+.grid-container {
+	display: grid;
+	gap: 20px; /* Adjust the gap size as needed */
+	padding: 20px; /* Adjust padding as needed */
+	width: 80%;
+  }
+  
+  .grid-item {
+	border: 1px solid #ccc; /* Adjust the color and border size as needed */
+	padding: 20px; /* Adjust padding as needed */
+	text-align: center;
+  }
+  
+  .grid-image {
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+  
+  .grid-title {
+	margin: 0;
+	color: #333; /* Adjust the color as needed */
+	font-size: 1.5em; /* Adjust font size as needed */
+  }
+  
+  .grid-description {
+	color: #666; /* Adjust the color as needed */
+	font-size: 1em; /* Adjust font size as needed */
+	margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+  
+  .grid-link {
+	color: #007bff; /* Adjust the link color as needed */
+	text-decoration: none;
+	font-weight: bold;
+  }
+  
+  .grid-link:hover {
+	text-decoration: underline;
+  }
+
+  
+
+  .grid-image canvas {
+	width: auto !important;
+	height: 100% !important;
+  }
+
+  .grid-image {
+	height: 30vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+
+  .grid-title {
+	font-size: 2.3em;
+	font-family: "Noto Serif Display", serif;
+	font-weight: 300;
+	color: #141414;
+  }
+
+  .grid-subtitle {
+	font-size: 1.2em;
+	font-family: "Coromorant Garamond", serif;
+	font-weight:500;
+	color: #141414;
+	text-decoration: underline;
+	text-underline-offset: 5px;
+  }
+
+  .grid-description {
+	font-size: 1.5em;
+	font-family: "Nano Myeongjo", serif;
+	font-weight: 300;
+	color: #606060;
+  }
+  .curl-text {
+	font-family: "Roboto", serif;
+	
+  }
+
+  
+
 
 
 

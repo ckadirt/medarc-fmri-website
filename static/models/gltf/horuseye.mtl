@@ -1,0 +1,14 @@
+# Blender 4.0.2 MTL File: 'None'
+# www.blender.org
+
+newmtl Default_Material
+Ns 54.299992
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /home/ckadirt/Downloads/eye-of-horus/source/2.fbx-files/Default Material_Flattened_Diffuse.tif
+map_refl /home/ckadirt/Downloads/eye-of-horus/source/C:/Program Files/Autodesk/Mudbox 2019/Textures/Lightprobes/horizon.exr
+map_Bump -bm 1.000000 /home/ckadirt/Downloads/eye-of-horus/source/2.fbx-files/Default Material_Flattened_Normal Map.tif

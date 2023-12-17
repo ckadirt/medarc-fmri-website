@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { setPointsBackground } from "../utils-canvas";
 
 const ParagraphHome = () => {
     return (
@@ -123,6 +125,11 @@ const TitleComponent = () => {
 };
 
 const ContentHome = () => {
+    useEffect(() => {
+        setPointsBackground(10);
+
+    }, []);
+      
     return (
         <div className="content"
             style={{

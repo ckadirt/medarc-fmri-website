@@ -10,6 +10,8 @@ import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.j
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import WebPage from './react-components'
 import { createRoot } from 'react-dom/client'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { setPointsBackground } from './utils-canvas'
 
 /////////////////////////////////////////////////////////////////////////
 //// DRACO LOADER TO LOAD DRACO COMPRESSED MODELS FROM BLENDER
@@ -61,8 +63,6 @@ const controls = new OrbitControls(camera, renderer.domElement)
 
 /////////////////////////////////////////////////////////////////////////
 ///// SCENE LIGHTS
-const ambient = new THREE.AmbientLight(0xa0a0fc, 0.82)
-scene.add(ambient)
 
 //const sunLight = new THREE.DirectionalLight(0xe8c37b, 1.96)
 //sunLight.position.set(-69,44,14)
@@ -70,7 +70,7 @@ scene.add(ambient)
 
 /////////////////////////////////////////////////////////////////////////
 ///// LOADING GLB/GLTF MODEL FROM BLENDER
-loader.load('models/gltf/brain_final.glb', function (gltf) {
+loader.load('models/gltf/brain_rp.glb', function (gltf) {
 
   gltf.scene.traverse((obj) => {
     if (obj.isMesh) {
@@ -111,7 +111,6 @@ function transformMesh() {
     transparent: true,
     opacity: 1,
     depthWrite: false,
-    sizeAttenuation: true,
     //alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
 
   })
@@ -203,7 +202,7 @@ function renderLoop() {
   controls.update();
   renderer.render(scene, camera);
 
-
+  
 
   const currentTime = Date.now();
   if (currentTime - lastMouseMoveTime > idleThreshold) {
@@ -218,8 +217,10 @@ function renderLoop() {
     cursor.y += (targetCursor.y - cursor.y) * lerpFactor;
   }
 
+
   // Update uniforms with the new cursor position
   uniforms.mousePos.value.set(cursor.x, cursor.y, 0);
+
 
   requestAnimationFrame(renderLoop);
 }
@@ -230,7 +231,7 @@ renderLoop();
 window.addEventListener('resize', (event) => {
   event.preventDefault();
   console.log(window.innerWidth, window.innerHeight);
-  
+
 }, false);
 
 document.addEventListener('mousemove', (event) => {
@@ -243,170 +244,118 @@ document.addEventListener('mousemove', (event) => {
   lastMouseMoveTime = Date.now();
 }, false);
 
-(async () => {
-  tsParticles.load("tsparticles", {
-    fps_limit: 60,
-    interactivity: {
 
-      events: {
-        onclick: { enable: true, mode: "push" },
-        onhover: {
-          enable: true,
-          mode: "attract",
-          parallax: { enable: false, force: 60, smooth: 10 }
-        },
-        resize: true
-      },
-      modes: {
-        push: { quantity: 4 },
-        attract: { distance: 200, duration: 0.4, factor: 5 }
-      }
-    },
-    particles: {
-      color: { value: "#FF5733" },
-      line_linked: {
-        color: "#FF5733",
-        distance: 150,
-        enable: true,
-        opacity: 0.4,
-        width: 1
-      },
-      move: {
-        attract: { enable: false, rotateX: 600, rotateY: 1200 },
-        bounce: false,
-        direction: "none",
-        enable: true,
-        out_mode: "out",
-        random: false,
-        speed: 2,
-        straight: false
-      },
-      number: { density: { enable: true, value_area: 800 }, value: 30 },
-      opacity: {
-        anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
-        random: false,
-        value: 0.5
-      },
-      shape: {
-        character: {
-          fill: false,
-          font: "Verdana",
-          style: "",
-          value: "*",
-          weight: "400"
-        },
-        image: {
-          height: 100,
-          replace_color: true,
-          src: "images/github.svg",
-          width: 100
-        },
-        polygon: { nb_sides: 5 },
-        stroke: { color: "#575859", width: 0 },
-        type: "circle"
-      },
-      size: {
-        anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
-        random: true,
-        value: 5
-      }
-    },
-    polygon: {
-      draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
-      move: { radius: 10 },
-      scale: 1,
-      type: "none",
-      url: ""
-    },
-    retina_detect: true
+
+
+
+export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0]) {
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+      75,
+      Math.max(window.innerWidth, 700) / Math.max(window.innerHeight, 700),
+      0.0001,
+      1000
+  );
+
+  const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true
   });
+  renderer.setSize(Math.max(window.innerWidth, 700), Math.max(window.innerHeight, 700));
 
-})();
+  try {
+    document.getElementById(divId).appendChild(renderer.domElement);
+  } catch (error) {
+    console.error(error);
+    return
+  }
+  
 
-function reductePointsBackground() {
-  (async () => {
-    tsParticles.load("tsparticles", {
-      fps_limit: 60,
-      interactivity: {
+  camera.position.z = cameraPosition[0];
+  camera.position.y = cameraPosition[1];
+  camera.position.x = cameraPosition[2];
 
-        events: {
-          onclick: { enable: true, mode: "push" },
-          onhover: {
-            enable: true,
-            mode: "attract",
-            parallax: { enable: false, force: 60, smooth: 10 }
-          },
-          resize: true
-        },
-        modes: {
-          push: { quantity: 4 },
-          attract: { distance: 200, duration: 0.4, factor: 5 }
-        }
+  const controls = new OrbitControls(camera, renderer.domElement);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  let sampler = null;
+  let paths = [];
+
+  new OBJLoader().load(
+      objPath,
+      (obj) => {    
+          sampler = new MeshSurfaceSampler(obj.children[0]).build();
+          
+            for (let i = 0; i < 32; i++) {
+                const path = new Path(i);
+                paths.push(path);
+                group.add(path.line);
+            }
+          
+          renderer.setAnimationLoop(render);
       },
-      particles: {
-        color: { value: "#FF5733" },
-        line_linked: {
-          color: "#FF5733",
-          distance: 150,
-          enable: true,
-          opacity: 0.4,
-          width: 1
-        },
-        move: {
-          attract: { enable: false, rotateX: 600, rotateY: 1200 },
-          bounce: false,
-          direction: "none",
-          enable: true,
-          out_mode: "out",
-          random: false,
-          speed: 2,
-          straight: false
-        },
-        number: { density: { enable: true, value_area: 800 }, value: 3 },
-        opacity: {
-          anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
-          random: false,
-          value: 0.5
-        },
-        shape: {
-          character: {
-            fill: false,
-            font: "Verdana",
-            style: "",
-            value: "*",
-            weight: "400"
-          },
-          image: {
-            height: 100,
-            replace_color: true,
-            src: "images/github.svg",
-            width: 100
-          },
-          polygon: { nb_sides: 5 },
-          stroke: { color: "#575859", width: 0 },
-          type: "circle"
-        },
-        size: {
-          anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
-          random: true,
-          value: 5
-        }
-      },
-      polygon: {
-        draw: { enable: false, lineColor: "#575859", lineWidth: 0.5 },
-        move: { radius: 10 },
-        scale: 1,
-        type: "none",
-        url: ""
-      },
-      retina_detect: true
-    });
-    renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 18 / 9));
+      (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
+      (err) => console.error(err)
+  );
 
-  })();
+  const tempPosition = new THREE.Vector3();
+  const materials = [
+      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: true, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: true, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: true, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xA73489, transparent: true, opacity: 0.5})
+  ];
+
+  class Path {
+      constructor(index) {
+          this.geometry = new THREE.BufferGeometry();
+          this.material = materials[index % 4];
+          this.line = new THREE.Line(this.geometry, this.material);
+          this.vertices = [];
+          
+          sampler.sample(tempPosition);
+          this.previousPoint = tempPosition.clone();
+      }
+      update() {
+          let pointFound = false;
+          while (!pointFound) {
+              sampler.sample(tempPosition);
+              if (tempPosition.distanceTo(this.previousPoint) < details) {
+                  this.vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+                  this.previousPoint = tempPosition.clone();
+                  pointFound = true;
+              }
+          }
+          this.geometry.setAttribute("position", new THREE.Float32BufferAttribute(this.vertices, 3));
+      }
+  }
+
+  function render() {
+      group.rotation.y += 0.002;
+
+      paths.forEach(path => {
+          if (path.vertices.length < 1500) {
+              path.update();
+          }
+      });
+
+      controls.update();
+      renderer.render(scene, camera);
+  }
+
+  window.addEventListener("resize", onWindowResize, false);
+
+  function onWindowResize() {
+      camera.aspect = Math.max(window.innerWidth, 700) / Math.max(window.innerHeight, 700);
+      camera.updateProjectionMatrix();
+      renderer.setSize(Math.max(window.innerWidth, 700), Math.max(window.innerHeight, 700));
+  }
+
+  // ... [rest of your code]
 }
-
-
 
 
 
@@ -424,7 +373,7 @@ const rootElement = document.getElementById("react-root");
 let lastScrollTop = 0;
 let hideTimeout, showTimeout;
 
-rootElement.addEventListener("scroll", function() {
+rootElement.addEventListener("scroll", function () {
   var header = document.querySelector('.header');
   var currentScroll = rootElement.scrollTop;
 
@@ -453,3 +402,4 @@ rootElement.addEventListener("scroll", function() {
 const root = createRoot(rootElement);
 
 root.render(<WebPage />, rootElement);
+

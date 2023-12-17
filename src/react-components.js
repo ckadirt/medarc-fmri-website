@@ -6,6 +6,7 @@ import { ContentJoinUs } from './contents/contentjoinus';
 import { ContentTeam } from './contents/contentteam';
 import { ContentNews } from './contents/contentnews';
 import { ContentLinks } from './contents/contentlinks';
+import { ContentProjects } from './contents/contentprojects';
 
 const Footer = () => {
     return (<footer className="footer">
@@ -98,6 +99,7 @@ const HeaderComputer = ({ setCurrentContent }) => {
                     <li><a className="nav-list-desk" href="#team" onClick={() => setCurrentContent("team")}>Team</a></li>
                     <li><a className="nav-list-desk" href="#news" onClick={() => setCurrentContent("news")}>News</a></li>
                     <li><a className="nav-list-desk" href="#links" onClick={() => setCurrentContent("links")}>Links</a></li>
+                    <li><a className='nav-list-desk' href="#projects" onClick={() => setCurrentContent("projects")}>Projects</a></li>
                     {/* <li><a className="nav-list-desk" href="#archive" onClick={() => setCurrentContent("archive")}>Archive</a></li> */}
                 </ul>
             </nav>
@@ -187,6 +189,7 @@ const HeaderMobile = ({ setCurrentContent }) => {
                         <li style={{ margin: "20px 0" }}><a className="nav-link" href="#joinus" onClick={() => handleLinkClick("joinus")}>Join Us</a></li>
                         <li style={{ margin: "20px 0" }}><a className="nav-link" href="#news" onClick={() => handleLinkClick("news")}>News</a></li>
                         <li style={{ margin: "20px 0" }}><a className="nav-link" href="#links" onClick={() => handleLinkClick("links")}>Links</a></li>
+                        <li style={{ margin: "20px 0" }}><a className="nav-link" href="#projects" onClick={() => handleLinkClick("projects")}>Projects</a></li>
                         {/* <li style={{ margin: "20px 0" }}><a className="nav-link" href="#archive">Archive</a></li> */}
                     </ul>
                 </nav>
@@ -277,6 +280,7 @@ const Content = (props) => {
             {prevContent === "team" && <ContentTeam isMobile={props.isMobile} />}
             {prevContent === "news" && <ContentNews />}
             {prevContent === "links" && <ContentLinks />}
+            {prevContent === "projects" && <ContentProjects isMobile={props.isMobile} />}
         </>
     );
 };
@@ -414,7 +418,7 @@ class WebPage extends React.Component {
         super(props);
         this.state = {
             isMobile: window.innerWidth <= 800,
-            currentContent: "links",
+            currentContent: "projects",
             currentBlock: 0,
         };
 
