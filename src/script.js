@@ -29,12 +29,12 @@ document.body.appendChild(container)
 /////////////////////////////////////////////////////////////////////////
 ///// SCENE CREATION
 const scene = new THREE.Scene()
-scene.background = null// new THREE.Color('white')
+scene.background = new THREE.Color(0xEDECEC)
 //scene.background.transparent = true
 /////////////////////////////////////////////////////////////////////////
 ///// RENDERER CONFIG
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) // turn on antialias
-renderer.setPixelRatio(window.devicePixelRatio * 0.5) // retina display
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false }) // turn on antialias
+renderer.setPixelRatio(Math.min(window.devicePixelRatio * 0.5,1)) // retina display
 renderer.setSize(Math.max(window.innerWidth * 1.5, 700), Math.max(window.innerHeight * 1.5, 700 * 2)) // set size
 renderer.outputEncoding = THREE.sRGBEncoding // set color encoding
 container.appendChild(renderer.domElement) // add the renderer to html div
@@ -250,10 +250,11 @@ console.log("Pixel Ratio: " + window.devicePixelRatio);
 
 export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0]) {
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xF2F2F2);
   const aspectRatio = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
   const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 1000);
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Adjusted for mobile
 
@@ -290,10 +291,10 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   
   const tempPosition = new THREE.Vector3();
   const materials = [
-      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: false, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: false, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: false, opacity: 0.5}),
-      new THREE.LineBasicMaterial({color: 0xA73489, transparent: false, opacity: 0.5})
+      new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: true, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF6767, transparent: true, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xFF3D68, transparent: true, opacity: 0.5}),
+      new THREE.LineBasicMaterial({color: 0xA73489, transparent: true, opacity: 0.5})
   ];
 
   class Path {
