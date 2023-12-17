@@ -276,7 +276,8 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
 
   camera.position.set(cameraPosition[2], cameraPosition[1], cameraPosition[0]);
   const controls = new OrbitControls(camera, renderer.domElement);
-  if (!isMobile) {
+  if (isMobile) {
+    controls.enable = false;
     controls.dispose();
   }
   
