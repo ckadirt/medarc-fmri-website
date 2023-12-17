@@ -66,21 +66,7 @@ const ContentNews = ({ isMobile }) => {
         setPointsBackground(0, isMobile);
         animateCanvas('left', '50vh');
         animateCanvas('up', '10vh')
-        const element = document.getElementById('news');
-
-
-        if (element) {
-            const handleMouseEnter = () => setHover(true);
-            const handleMouseLeave = () => setHover(false);
-
-            element.addEventListener('mouseenter', handleMouseEnter);
-            element.addEventListener('mouseleave', handleMouseLeave);
-
-            return () => {
-                element.removeEventListener('mouseenter', handleMouseEnter);
-                element.removeEventListener('mouseleave', handleMouseLeave);
-            };
-        }
+        
     }
     );
 

@@ -239,7 +239,7 @@ renderLoop();
 // check resize screen and update accordingly
 window.addEventListener('resize', (event) => {
   event.preventDefault();
-  console.log(window.innerWidth, window.innerHeight);
+  //console.log(window.innerWidth, window.innerHeight);
 
 }, false);
 
@@ -255,7 +255,7 @@ document.addEventListener('mousemove', (event) => {
 
 
 
-console.log("Pixel Ratio: " + window.devicePixelRatio);
+//console.log("Pixel Ratio: " + window.devicePixelRatio);
 
 export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0], isMobile = false) {
   const scene = new THREE.Scene();
@@ -302,7 +302,7 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
       }
       renderer.setAnimationLoop(render);
     },
-    (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
+    //(xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
     (err) => console.error(err)
   );
 

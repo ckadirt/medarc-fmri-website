@@ -53,7 +53,7 @@ const Collaborations = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "60vh",
+                minHeight: "60vh",
                 width: "60%",
             }}
             className="container-block-joinus"
@@ -101,7 +101,7 @@ const Interships = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "60vh",
+                minHeight: "60vh",
                 width: "60%",
             }}
             className="container-block-joinus"

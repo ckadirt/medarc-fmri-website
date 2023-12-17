@@ -225,11 +225,11 @@ const Content = (props) => {
     // }, [props.currentContent]);
 
     useEffect(() => {
-        console.log('Current Content:', props.currentContent, 'Previous Content:', prevContent);
-        console.log(prevContent !== props.currentContent)
+        //console.log('Current Content:', props.currentContent, 'Previous Content:', prevContent);
+        //console.log(prevContent !== props.currentContent)
         showUp();
         if (prevContent !== props.currentContent) {
-            console.log("entro")
+            //("entro")
             showDown();
             // set timeout to wait for animation to finish
             setTimeout(() => {
@@ -297,11 +297,11 @@ function BlockController(props) {
         const handleScroll = (event) => {
             var viewportHeight = window.innerHeight;
             var currentPosition = event.target.scrollTop;
-            console.log(currentPosition);
+            //console.log(currentPosition);
 
             // Convert VH positions to pixels
             const positionsPixels = positionsVH.map(vh => (viewportHeight * vh) / 100);
-            console.log('Positions in pixels:', positionsPixels);
+            //console.log('Positions in pixels:', positionsPixels);
 
             // Determine the current block
             let currentBlock = positionsPixels.findIndex((position, index) => {
@@ -315,7 +315,7 @@ function BlockController(props) {
                 props.setCurrentBlock(currentBlock);
             }
 
-            console.log('Current Block:', currentBlock);
+            //console.log('Current Block:', currentBlock);
 
         };
 
@@ -342,8 +342,8 @@ const CanvasAnimator = (props) => {
             prevBlock = newBlock;
         }
         useEffect(() => {
-            console.log(props)
-            console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
+            //console.log(props)
+            //console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
             if (true) {
 
                 if (props.currentBlock === 1) {
@@ -375,8 +375,8 @@ const CanvasAnimator = (props) => {
             prevBlock = newBlock;
         }
         useEffect(() => {
-            console.log(props)
-            console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
+            //console.log(props)
+            //console.log('Current Blocck:', props.currentBlock, 'Previous Block:', prevBlock);
             if (true) {
                 if (props.currentBlock === 0) {
                     animateCanvas('right', '0vh');

@@ -28,7 +28,7 @@ const GridItem = ({ title, subtitle, description, link, buttonText, modelPath, t
     // generate a random text for the model id
     const modelId = Math.random().toString(36).substring(7);
     useEffect(() => {
-        console.log('GridItem useEffect');
+        //console.log('GridItem useEffect');
         initRenderer(modelPath, modelId, threeDstuff?.details, threeDstuff?.cameraPosition, isMobile);
     }, []);
 
