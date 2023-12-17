@@ -276,6 +276,10 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
 
   camera.position.set(cameraPosition[2], cameraPosition[1], cameraPosition[0]);
   const controls = new OrbitControls(camera, renderer.domElement);
+  if (!isMobile) {
+    controls.dispose();
+  }
+  
   const group = new THREE.Group();
   scene.add(group);
 
@@ -342,7 +346,10 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
 
     
   function renderAni() {
-    controls.update();
+    requestAnimationFrame(renderAni );
+      controls.update();
+    
+    
     renderer.render(scene, camera);
     
     group.rotation.y += 0.002;
@@ -356,7 +363,7 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
 
       
 
-      requestAnimationFrame(renderAni );
+      
       
       
       
