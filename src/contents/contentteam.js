@@ -91,7 +91,7 @@ const TeamMembers = ({ teamMembers, gridSize, isMobile, TeamNoPicture }) => {
 const ContentTeam = ({ isMobile }) => {
 
     useEffect(() => {
-        setPointsBackground(20, isMobile);
+        setPointsBackground(60, isMobile);
         animateCanvas('left', '250vh');
     }
     );
