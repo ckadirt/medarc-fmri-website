@@ -91,9 +91,17 @@ const cursor = { x: 0, y: 0 }
 const vertices = []
 const tempPosition = new THREE.Vector3()
 
+let numberOfPoints = 50000;
+let pointSize = 0.004;
+// for mobile
+if (window.innerWidth < 600) {
+  numberOfPoints = 10000;
+  pointSize = 0.01;
+}
+
 function transformMesh() {
   // Loop to sample a coordinate for each points
-  for (let i = 0; i < 50000; i++) {
+  for (let i = 0; i < numberOfPoints; i++) {
     // Sample a random position in the model
     sampler.sample(tempPosition)
     // Push the coordinates of the sampled coordinates into the array
@@ -106,9 +114,9 @@ function transformMesh() {
   // Define the matrial of the points
   const pointsMaterial = new THREE.PointsMaterial({
     color: '#FF5733',
-    size: 0.004,
+    size: pointSize,
     //blending: THREE.AdditiveBlending,
-    transparent: true,
+    transparent: false,
     opacity: 1,
     depthWrite: false,
     //alphaMap: new THREE.TextureLoader().load('particle-texture.jpg'),
