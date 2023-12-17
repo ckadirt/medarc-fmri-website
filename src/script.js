@@ -322,28 +322,46 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   ];
 
   class Path {
-      constructor(index) {
-          this.geometry = new THREE.BufferGeometry();
-          this.material = materials[index % 4];
-          this.line = new THREE.Line(this.geometry, this.material);
-          this.vertices = [];
-          
-          sampler.sample(tempPosition);
-          this.previousPoint = tempPosition.clone();
-      }
-      update() {
-          let pointFound = false;
-          while (!pointFound) {
-              sampler.sample(tempPosition);
-              if (tempPosition.distanceTo(this.previousPoint) < details) {
-                  this.vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
-                  this.previousPoint = tempPosition.clone();
-                  pointFound = true;
-              }
-          }
-          this.geometry.setAttribute("position", new THREE.Float32BufferAttribute(this.vertices, 3));
-      }
-  }
+    constructor(index) {
+        this.geometry = new THREE.BufferGeometry();
+        this.material = materials[index % 4];
+        this.line = new THREE.Line(this.geometry, this.material);
+        this.vertices = [];
+        
+        // Ensure sampler and tempPosition are defined and properly initialized outside this class
+        sampler.sample(tempPosition);
+        this.previousPoint = tempPosition.clone();
+        this.direction = new THREE.Vector3(); // Ensure this is a valid THREE.Vector3 object
+    }
+
+    update() {
+        let pointFound = false;
+        let attempts = 0;
+        const maxAttempts = isMobile ? 10 : 100;
+
+        while (!pointFound && attempts < maxAttempts) {
+            sampler.sample(tempPosition);
+
+            // Make sure tempPosition and this.previousPoint are defined and are THREE.Vector3 objects
+            if (tempPosition && this.previousPoint) {
+                this.direction.subVectors(tempPosition, this.previousPoint);
+
+                if (this.direction.length() < details) {
+                    this.vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+                    this.previousPoint = tempPosition.clone();
+                    pointFound = true;
+                }
+            }
+
+            attempts++;
+        }
+
+        if (pointFound) {
+            this.geometry.setAttribute('position', new THREE.Float32BufferAttribute(this.vertices, 3));
+        }
+    }
+}
+
 
     
   function renderAni() {
