@@ -281,9 +281,9 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   let sampler = null;
   let paths = [];
 
-  let speed = 10;
+  let speed = 16;
   if (isMobile) {
-    speed = 5;
+    speed = 4;
   }
   new OBJLoader().load(
     objPath,
@@ -340,11 +340,12 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   }
 
     
-  function render() {
+  function renderAni() {
+    controls.update();
     renderer.render(scene, camera);
-    if (!isMobile) {
-      group.rotation.y += 0.002;
-    }
+    
+    group.rotation.y += 0.002;
+    
       paths.forEach(path => {
           if (path.vertices.length < maxNumPoints) {
               path.update();
@@ -352,11 +353,15 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
           }
       });
 
-      controls.update();
+      
+
+      requestAnimationFrame(renderAni );
       
       
       
   }
+
+  renderAni();
 
 
   function onWindowResize() {
