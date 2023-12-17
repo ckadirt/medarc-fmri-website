@@ -249,36 +249,23 @@ document.addEventListener('mousemove', (event) => {
 console.log("Pixel Ratio: " + window.devicePixelRatio);
 
 export function initRenderer(objPath, divId, details = 10, cameraPosition = [220,100,0]) {
-
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-      75,
-      Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400),
-      0.0001,
-      1000
-  );
+  const aspectRatio = Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400);
+  const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.0001, 1000);
 
-  const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true
-  });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
-  renderer.setPixelRatio(window.devicePixelRatio * 0.5)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Adjusted for mobile
 
   try {
     document.getElementById(divId).appendChild(renderer.domElement);
   } catch (error) {
     console.error(error);
-    return
+    return;
   }
-  
 
-  camera.position.z = cameraPosition[0];
-  camera.position.y = cameraPosition[1];
-  camera.position.x = cameraPosition[2];
-
+  camera.position.set(cameraPosition[2], cameraPosition[1], cameraPosition[0]);
   const controls = new OrbitControls(camera, renderer.domElement);
-
   const group = new THREE.Group();
   scene.add(group);
 
@@ -286,22 +273,21 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   let paths = [];
 
   new OBJLoader().load(
-      objPath,
-      (obj) => {    
-          sampler = new MeshSurfaceSampler(obj.children[0]).build();
-          
-            for (let i = 0; i < 10; i++) {
-                const path = new Path(i);
-                paths.push(path);
-                group.add(path.line);
-            }
-          
-          renderer.setAnimationLoop(render);
-      },
-      (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
-      (err) => console.error(err)
+    objPath,
+    (obj) => {
+      sampler = new MeshSurfaceSampler(obj.children[0]).build();
+      for (let i = 0; i < 10; i++) {
+        const path = new Path(i);
+        paths.push(path);
+        group.add(path.line);
+      }
+      renderer.setAnimationLoop(render);
+    },
+    (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
+    (err) => console.error(err)
   );
 
+  
   const tempPosition = new THREE.Vector3();
   const materials = [
       new THREE.LineBasicMaterial({color: 0xFAAD80, transparent: true, opacity: 0.5}),
@@ -351,18 +337,16 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
       
   }
 
-  window.addEventListener("resize", onWindowResize, false);
 
   function onWindowResize() {
-      camera.aspect = Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400);
-      camera.updateProjectionMatrix();
-      renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
+    camera.aspect = Math.max(window.innerWidth * 0.35, 400) / Math.max(window.innerHeight * 0.35, 400);
+    camera.updateProjectionMatrix();
+    renderer.setSize(Math.max(window.innerWidth * 0.35, 400), Math.max(window.innerHeight * 0.35, 400));
   }
 
-  
-  
-
+  window.addEventListener("resize", onWindowResize, false);
 }
+
 
 
 
