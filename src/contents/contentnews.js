@@ -61,9 +61,9 @@ const NewsItem = ({ date, title, link }) => (
   ];
   
 
-const ContentNews = () => {
+const ContentNews = ({ isMobile }) => {
     useEffect(() => {
-        setPointsBackground(0);
+        setPointsBackground(0, isMobile);
         animateCanvas('left', '50vh');
         animateCanvas('up', '10vh')
         const element = document.getElementById('news');

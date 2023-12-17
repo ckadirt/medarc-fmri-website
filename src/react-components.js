@@ -257,10 +257,12 @@ const Content = (props) => {
                     currentBlock={props.currentBlock}
                     setCurrentBlock={props.setCurrentBlock}
                     positions={[0, 50, 140, 200]}
+                    isMobile={props.isMobile}
                 />
                 <CanvasAnimator
                     currentBlock={props.currentBlock}
                     type="home"
+                    isMobile={props.isMobile}
                 />
             </>}
             {prevContent === "joinus" && <>
@@ -273,13 +275,14 @@ const Content = (props) => {
                 <CanvasAnimator
                     currentBlock={props.currentBlock}
                     type="joinus"
+                    isMobile={props.isMobile}
                 />
             </>
 
             }
             {prevContent === "team" && <ContentTeam isMobile={props.isMobile} />}
-            {prevContent === "news" && <ContentNews />}
-            {prevContent === "links" && <ContentLinks />}
+            {prevContent === "news" && <ContentNews isMobile={props.isMobile} />}
+            {prevContent === "links" && <ContentLinks isMobile={props.isMobile} />}
             {prevContent === "projects" && <ContentProjects isMobile={props.isMobile} />}
         </>
     );
@@ -344,14 +347,14 @@ const CanvasAnimator = (props) => {
             if (true) {
 
                 if (props.currentBlock === 1) {
-                    setPointsBackground(3);
+                    setPointsBackground(3, props.isMobile);
                     animateCanvas('right', '100vh');
                     animateCanvas('up', '30vh');
                 }
                 if (props.currentBlock === 0) {
                     animateCanvas('right', '0vh');
                     animateCanvas('up', '0vh');
-                    setPointsBackground(40);
+                    setPointsBackground(40, props.isMobile);
                 }
 
 
@@ -382,7 +385,7 @@ const CanvasAnimator = (props) => {
                 }
 
                 if (props.currentBlock === 1) {
-                    setPointsBackground(3);
+                    setPointsBackground(3, props.isMobile);
                     animateCanvas('left', '90vh');
                     animateCanvas('down', '10vh');
 

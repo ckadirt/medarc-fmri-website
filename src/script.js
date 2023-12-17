@@ -94,7 +94,8 @@ const tempPosition = new THREE.Vector3()
 let numberOfPoints = 50000;
 let pointSize = 0.004;
 // for mobile
-if (window.innerWidth < 600) {
+let isMobile = window.innerWidth < 600;
+if (isMobile) {
   numberOfPoints = 10000;
   pointSize = 0.01;
 }
@@ -364,13 +365,13 @@ export function initRenderer(objPath, divId, details = 10, cameraPosition = [220
   renderAni();
 
 
-  function onWindowResize() {
-    camera.aspect = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
-    camera.updateProjectionMatrix();
-    renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
-  }
+  // function onWindowResize() {
+  //   camera.aspect = Math.max(window.innerWidth * 0.35, 279) / Math.max(window.innerHeight * 0.35, 279);
+  //   camera.updateProjectionMatrix();
+  //   renderer.setSize(Math.max(window.innerWidth * 0.35, 279), Math.max(window.innerHeight * 0.35, 279));
+  // }
 
-  window.addEventListener("resize", onWindowResize, false);
+  // window.addEventListener("resize", onWindowResize, false);
 }
 
 

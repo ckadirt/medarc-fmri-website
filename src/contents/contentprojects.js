@@ -140,7 +140,7 @@ let projects = [
 const ContentProjects = ({isMobile}) => {
 
     useEffect(() => {
-        setPointsBackground(0);
+        setPointsBackground(0, isMobile);
         animateCanvas("right", "-250vh");
 
     }

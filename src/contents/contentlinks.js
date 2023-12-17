@@ -184,9 +184,9 @@ const ResourcesArchive = () => {
     );
 }
 
-const ContentLinks = () => {
+const ContentLinks = ({ isMobile }) => {
     useEffect(() => {
-        setPointsBackground(0);
+        setPointsBackground(0, isMobile);
         animateCanvas('left', '250vh');
 
     }

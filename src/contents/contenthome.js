@@ -124,9 +124,9 @@ const TitleComponent = () => {
     );
 };
 
-const ContentHome = () => {
+const ContentHome = ({ isMobile }) => {
     useEffect(() => {
-        setPointsBackground(10);
+        setPointsBackground(10, isMobile);
 
     }, []);
       

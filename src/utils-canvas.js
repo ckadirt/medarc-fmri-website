@@ -1,4 +1,9 @@
-export function setPointsBackground(numberOfPoints) {
+export function setPointsBackground(numberOfPoints, isMobile = true) {
+  if (isMobile) {
+    return;
+  }
+
+  console.log('calling')
 
   // select this element
   // #tsparticles canvas {
