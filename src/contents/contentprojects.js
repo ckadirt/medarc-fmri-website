@@ -73,7 +73,7 @@ let projects = [
         "title": "Contrastive language-image-brain pre-training (CLIBP)",
         "subtitle": "STATUS: DESIGN PHASE",
         "description": "The CLIBP project explores the potential of using neuroimaging data to enhance AI models. Specifically, we aim to compare two CLIP models: one trained with typical text-image data and another with text-image-fMRI data. Our goal is to determine if incorporating fMRI data can improve image-text understanding tasks. This research could significantly impact the future integration of neuroimaging data with AI models.",
-        "link": "",
+        "link": "https://docs.google.com/document/d/1a1xd6oZ-kqXx4s_r3d3gCQh3IhOGVLXWhOIDDNx8fGk/edit#heading=h.xzgfkqpx78y",
         "buttonText": "Get involved",
         "modelPath": "models/gltf/prism.obj",
         "threeDstuff": {
@@ -86,7 +86,7 @@ let projects = [
         "title": "⁠Foundation ECoG model",
         "subtitle": "STATUS: IN PROGRESS",
         "description": "The Foundation ECoG Model project aims to develop a comprehensive AI model for Electrocorticography (ECoG) data, similar to the foundational fMRI model. This project will leverage ECoG data from nearly 200 patients to create a robust, generalizable model.",
-        "link": "",
+        "link": "https://github.com/leoniekerken/ECoG-foundation-model",
         "buttonText": "Get involved",
         "modelPath": "models/gltf/satellite_dish.obj",
         "threeDstuff": {
@@ -99,7 +99,7 @@ let projects = [
         "title": "Brain-based image filtering",
         "subtitle": "STATUS: IN PROGRESS",
         "description": "The Brain-based Image Filtering project focuses on leveraging neuro data to enhance image filtering in machine learning. By using fMRI encoding models, we aim to train CLIP models on filtered and unfiltered image sets. Our goal is to demonstrate that filtering images based on brain data improves the performance of CLIP models.",
-        "link": "",
+        "link": "https://docs.google.com/document/d/1LFG4JjDqR2MuemEEHQUV-QkGHesM3Qtt6G2b3qRG4bE/",
         "buttonText": "Get involved",
         "modelPath": "models/gltf/magnifying_glass.obj",
         "threeDstuff": {
@@ -112,7 +112,7 @@ let projects = [
         "title": "⁠EEG-to-Image",
         "subtitle": "STATUS: IN PROGRESS",
         "description": "The EEG-to-Image project aims to create a complete pipeline for reconstructing images from EEG data. This includes stimuli preparation, data collection, modeling, and image reconstruction. The goal is to translate brainwave activity into visual representations, advancing brain-computer interfaces and cognitive neuroscience.",
-        "link": "",
+        "link": "https://discord.gg/PZX32JybK5",
         "buttonText": "Get involved",
         "modelPath": "models/gltf/abstract_wave.obj",
         "threeDstuff": {
