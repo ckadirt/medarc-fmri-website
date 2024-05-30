@@ -69,7 +69,57 @@ const GridComponent = ({ columns, items, isMobile }) => {
 };
 
 let projects = [
-    
+    {
+        "title": "Contrastive language-image-brain pre-training (CLIBP)",
+        "subtitle": "STATUS: DESIGN PHASE",
+        "description": "The CLIBP project explores the potential of using neuroimaging data to enhance AI models. Specifically, we aim to compare two CLIP models: one trained with typical text-image data and another with text-image-fMRI data. Our goal is to determine if incorporating fMRI data can improve image-text understanding tasks. This research could significantly impact the future integration of neuroimaging data with AI models.",
+        "link": "",
+        "buttonText": "Get involved",
+        "modelPath": "models/gltf/prism.obj",
+        "threeDstuff": {
+            details: 0.5,
+            cameraPosition: [7, 5, 3],
+        }
+    }, 
+
+    {
+        "title": "⁠Foundation ECoG model",
+        "subtitle": "STATUS: IN PROGRESS",
+        "description": "The Foundation ECoG Model project aims to develop a comprehensive AI model for Electrocorticography (ECoG) data, similar to the foundational fMRI model. This project will leverage ECoG data from nearly 200 patients to create a robust, generalizable model.",
+        "link": "",
+        "buttonText": "Get involved",
+        "modelPath": "models/gltf/satellite_dish.obj",
+        "threeDstuff": {
+            details: 0.5,
+            cameraPosition: [7, -5, 3],
+        }
+    }, 
+
+    {
+        "title": "Brain-based image filtering",
+        "subtitle": "STATUS: IN PROGRESS",
+        "description": "The Brain-based Image Filtering project focuses on leveraging neuro data to enhance image filtering in machine learning. By using fMRI encoding models, we aim to train CLIP models on filtered and unfiltered image sets. Our goal is to demonstrate that filtering images based on brain data improves the performance of CLIP models.",
+        "link": "",
+        "buttonText": "Get involved",
+        "modelPath": "models/gltf/magnifying_glass.obj",
+        "threeDstuff": {
+            details: 0.2,
+            cameraPosition: [-3, 5, 3],
+        }
+    }, 
+
+    {
+        "title": "⁠EEG-to-Image",
+        "subtitle": "STATUS: IN PROGRESS",
+        "description": "The EEG-to-Image project aims to create a complete pipeline for reconstructing images from EEG data. This includes stimuli preparation, data collection, modeling, and image reconstruction. The goal is to translate brainwave activity into visual representations, advancing brain-computer interfaces and cognitive neuroscience.",
+        "link": "",
+        "buttonText": "Get involved",
+        "modelPath": "models/gltf/abstract_wave.obj",
+        "threeDstuff": {
+            details: 0.3,
+            cameraPosition: [3, 3, 0],
+        }
+    },   
 
     {
         "title": "Infant-like articulator",
@@ -86,7 +136,7 @@ let projects = [
 
     {
         "title": "Brain-inspired transformers",
-        "subtitle": "STATUS: PLANNING",
+        "subtitle": "STATUS: IN PROGRESS",
         "description": "A novel AI model inspired by the brain's structure. It modifies the transformer architecture to resemble cortical columns, with untied weights, a flattened architecture for spatial embedding, and local communication. This model aims to learn topographic specialization and support multidirectional communication, differing from standard feedforward networks. Key focuses include training feasibility, task performance, connectivity patterns, and topographical structures emerging from the model.",
         "link": "https://github.com/clane9/columnformers",
         "buttonText": "Get involved",
@@ -96,19 +146,6 @@ let projects = [
             cameraPosition: [200, 50, 60],
         }
     },
-
-    {
-        "title": "MindEyeV2",
-        "subtitle": "STATUS: IN PROGRESS",
-        "description": "An evolving extension of the MindEye project, aiming to enhance the generability of its fMRI-to-image approach across various subjects. Currently integrating Stable Diffusion XL for more nuanced image reconstruction, the project explores incorporating additional data such as memory and behavior patterns.",
-        "link": "https://github.com/MedARC-AI/MindEyeV2",
-        "buttonText": "Get involved",
-        "modelPath": "models/gltf/peacock.obj",
-        "threeDstuff": {
-            details: 25,
-            cameraPosition: [200, 200, 0],
-        }
-    }, 
     
     {
         "title": "FMRI-fundational-model",
@@ -122,6 +159,19 @@ let projects = [
             cameraPosition: [150, 150, 0],
         }
     },
+
+    {
+        "title": "MindEyeV2",
+        "subtitle": "STATUS: PUBLISHED",
+        "description": "MindEye2 revolutionizes visual perception reconstruction from brain activity, achieving high-quality results with just one hour of fMRI data. Pretrained across seven subjects and fine-tuned on minimal data, it maps brain data to a shared latent space and uses SDXL unclip for image reconstruction. This method improves generalization and sets new standards in image retrieval and reconstruction.",
+        "link": "https://github.com/MedARC-AI/MindEyeV2",
+        "buttonText": "Get involved",
+        "modelPath": "models/gltf/peacock.obj",
+        "threeDstuff": {
+            details: 25,
+            cameraPosition: [200, 200, 0],
+        }
+    }, 
 
     {
         "title": "MindEye",

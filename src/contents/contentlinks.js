@@ -119,6 +119,23 @@ const ResourcesArchive = () => {
                                             <p>
                                                 <i class="fa-regular fa-circle"></i> <a href="https://medarc.notion.site/MedARC-x-Stability-HPC-Guide-94da8a92f11f4f6485fc5179880bcaf1?pvs=25" target="_blank" rel="noopener noreferrer">MedARC x Stability HPC Guide</a>
                                             </p>
+
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/fMRI-foundation-model-working-group-video-recordings-4c5b0a7269584a3cabbd7b102b9ce272" target="_blank" rel="noopener noreferrer">fMRI foundation model working group video recordings</a>
+                                            </p>
+
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/Brain-based-image-filtering-3bd79023c2ee454586f9b5adf1641dd1" target="_blank" rel="noopener noreferrer">Brain-based image filtering</a>
+                                            </p>
+
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/Brain-like-transformers-working-group-video-recordings-bd2708714c5d4be2a6678a72bef3754c" target="_blank" rel="noopener noreferrer">Brain-like transformers working group video recordings </a>
+                                            </p>
+
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/ECoG-foundation-model-working-group-video-recordings-7169dc0b9f2e43c3af6a3833eddefa70" target="_blank" rel="noopener noreferrer">ECoG foundation model working group video recordings</a>
+                                            </p>
+
                                             <p>
                                                 <i class="fa-regular fa-circle"></i> <a href="https://medarc.notion.site/Weekly-working-group-video-recordings-1abcb44475af40dfaaea63454ec4a12f?pvs=25" target="_blank" rel="noopener noreferrer">Weekly working group video recordings</a>
                                             </p>
@@ -160,15 +177,28 @@ const ResourcesArchive = () => {
                                                 width: "100%",
                                             }}
                                         >
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/Radiology-foundation-model-working-group-video-recordings-3f56fa9956684670bd4b57591fed7887" target="_blank" rel="noopener noreferrer">Radiology foundation model working group video recordings</a>
+                                            </p>
+
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/MindEye2-working-group-video-recordings-656bb23a0020458a9fee3a606001e341" target="_blank" rel="noopener noreferrer">MindEye2 working group video recordings</a>
+                                            </p>
 
                                             <p>
                                                 <i class="fa-regular fa-circle"></i> <a href="https://file.notion.so/f/f/11462e7c-4f6d-417c-830f-abd90d5d8788/92d96869-1a6b-485d-a208-4d0d6ab1ac29/MedARC_RealtimeRecon_proposal.pdf?id=a833fbc0-e00a-4144-82ee-aaecee776783&table=block&spaceId=11462e7c-4f6d-417c-830f-abd90d5d8788&expirationTimestamp=1701640800000&signature=mEqtEEpIruRA5_OGH00YEw5Z_e2KZY4JyyHGhYaClm8&downloadName=MedARC_RealtimeRecon_proposal_2022.pdf" target="_blank" rel="noopener noreferrer">MedARC_RealtimeRecon_proposal_2022.pdf</a>
                                             </p>
+
                                             <p>
                                                 <i class="fa-regular fa-circle"></i> <a href="https://medarc.notion.site/Projects-overview-old-d61c0a72498f4471bdfb44f7b80a5726?pvs=25" target="_blank" rel="noopener noreferrer">Projects overview (old)</a>
                                             </p>
+
                                             <p>
                                                 <i class="fa-regular fa-circle"></i> <a href="https://medarc.notion.site/MindEyeV1-meeting-recordings-old-e547e2cd773242f4a7bf0f538ba4741d?pvs=25" target="_blank" rel="noopener noreferrer">MindEyeV1 meeting recordings (old)</a>
+                                            </p>
+
+                                            <p>
+                                                <i class="fa-regular fa-circle"></i> <a href="https://stabilityai.notion.site/Jan_8_2023-BRAINstorming-3bedb62a63e24f2b97fd48eb5e314785" target="_blank" rel="noopener noreferrer">Jan_8_2023 BRAINstorming</a>
                                             </p>
 
 
